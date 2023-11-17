@@ -6,7 +6,6 @@
 
 // /////////////////////////////////////////////////
 
-
 // // DIFFERENT DATA! Contains movement dates, currency and locale
 
 // const account1 = {
@@ -1686,3 +1685,44 @@
 // // Test the function
 // const sortedDeck = advancedSortDeck(deck);
 // console.log(sortedDeck);
+
+//---------Mubashir Cipher(Edabit.com)--------
+
+function mubashirCipher(message) {
+  var key = [
+    ["m", "c"],
+    ["u", "e"],
+    ["b", "g"],
+    ["a", "k"],
+    ["s", "v"],
+    ["h", "x"],
+    ["i", "z"],
+    ["r", "y"],
+    ["p", "w"],
+    ["l", "n"],
+    ["o", "j"],
+    ["t", "f"],
+    ["q", "d"],
+  ];
+  message = message.split(""); //splitting to individual chars(converting to arr)
+  message = message
+    .map((char) => {
+      //looping the keys
+      for (let keys of key) {
+        //Guard Clause
+        if (char === " ") return char;
+
+        if (keys.includes(char)) {
+          const index = key.indexOf(char);
+          //Return alternate key
+          return char === keys[0] ? keys[1] : keys[0];
+        }
+      }
+    })
+    .join("");
+  //Joining the final solution
+
+  return message;
+}
+console.log(mubashirCipher("mubashir is not amazing")); //cegkvxzy zv ljf kckizlb
+//Tried to make an easy and a concise solution
