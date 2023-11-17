@@ -1713,7 +1713,6 @@ function mubashirCipher(message) {
         if (char === " ") return char;
 
         if (keys.includes(char)) {
-          const index = key.indexOf(char);
           //Return alternate key
           return char === keys[0] ? keys[1] : keys[0];
         }
