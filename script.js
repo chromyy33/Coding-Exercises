@@ -1688,40 +1688,92 @@
 
 //---------Mubashir Cipher(Edabit.com)--------
 
-function mubashirCipher(message) {
-  var key = [
-    ["m", "c"],
-    ["u", "e"],
-    ["b", "g"],
-    ["a", "k"],
-    ["s", "v"],
-    ["h", "x"],
-    ["i", "z"],
-    ["r", "y"],
-    ["p", "w"],
-    ["l", "n"],
-    ["o", "j"],
-    ["t", "f"],
-    ["q", "d"],
-  ];
-  message = message.split(""); //splitting to individual chars(converting to arr)
-  message = message
-    .map((char) => {
-      //looping the keys
-      for (let keys of key) {
-        //Guard Clause
-        if (char === " ") return char;
+// function mubashirCipher(message) {
+//   var key = [
+//     ["m", "c"],
+//     ["u", "e"],
+//     ["b", "g"],
+//     ["a", "k"],
+//     ["s", "v"],
+//     ["h", "x"],
+//     ["i", "z"],
+//     ["r", "y"],
+//     ["p", "w"],
+//     ["l", "n"],
+//     ["o", "j"],
+//     ["t", "f"],
+//     ["q", "d"],
+//   ];
+//   message = message.split(""); //splitting to individual chars(converting to arr)
+//   message = message
+//     .map((char) => {
+//       //looping the keys
+//       for (let keys of key) {
+//         //Guard Clause
+//         if (char === " ") return char;
 
-        if (keys.includes(char)) {
-          //Return alternate key
-          return char === keys[0] ? keys[1] : keys[0];
-        }
-      }
-    })
-    .join("");
-  //Joining the final solution
+//         if (keys.includes(char)) {
+//           //Return alternate key
+//           return char === keys[0] ? keys[1] : keys[0];
+//         }
+//       }
+//     })
+//     .join("");
+//   //Joining the final solution
 
-  return message;
-}
-console.log(mubashirCipher("mubashir is not amazing")); //cegkvxzy zv ljf kckizlb
+//   return message;
+// }
+// console.log(mubashirCipher("mubashir is not amazing")); //cegkvxzy zv ljf kckizlb
 //Tried to make an easy and a concise solution
+
+// Know Your Neighbor(Edabit)
+
+// function plusSign(str) {
+//   let alphabets = str.match(/[a-z]/g);
+//   let result;
+//   for (let i = 0; i < str.length - 1; i++) {
+//     if (alphabets.includes(str[i])) {
+//       result = str[i - 1] === "+" && str[i + 1] === "+" ? true : false;
+//       if (result === false) break;
+//     }
+//   }
+//   return result;
+// }
+
+// console.log(plusSign("+f+d+c+#+f+"));
+// console.log(plusSign("+s+7+fg+r+8+"));
+// console.log(plusSign("f++d+g+8+"));
+// console.log(plusSign("+d+=3=+s+"));
+// console.log(plusSign("a+"));
+
+//Unique Element
+
+function returnUnique(arr) {
+  let isPresent = false;
+  let results = [];
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] === arr[j]) {
+        results.push(arr[i]); //finding values that repeat
+      }
+    }
+  }
+  arr = arr.filter((char) => !results.includes(char)); //filtered
+  return arr;
+}
+
+
+//CHAT GPT Soln
+function returnUnique(arr) {
+  let charCount = {};
+
+  // Count the occurrences of each character
+  for (let char of arr) {
+    charCount[char] = (charCount[char] || 0) + 1;
+  }
+
+  // Filter out characters with count > 1
+  let nonRepeatingArr = arr.filter((char) => charCount[char] === 1);
+
+  return nonRepeatingArr;
+}
