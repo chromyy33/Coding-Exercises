@@ -1762,7 +1762,6 @@ function returnUnique(arr) {
   return arr;
 }
 
-
 //CHAT GPT Soln
 function returnUnique(arr) {
   let charCount = {};
@@ -1776,3 +1775,16 @@ function returnUnique(arr) {
 
   return nonRepeatingArr;
 }
+
+let createCounter = function (n) {
+  return function () {
+    return [n++];
+  };
+};
+
+
+const counter = createCounter(10);
+console.log(counter());
+console.log(counter());
+console.log(counter());
+
