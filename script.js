@@ -1771,7 +1771,6 @@ function returnUnique(arr) {
   for (let char of arr) {
     charCount[char] = (charCount[char] || 0) + 1;
   }
-
   // Filter out characters with count > 1
   let nonRepeatingArr = arr.filter((char) => charCount[char] === 1);
 
