@@ -1,361 +1,6 @@
 "use strict";
 
-// /////////////////////////////////////////////////
-// /////////////////////////////////////////////////
-// // BANKIST APP
 
-// /////////////////////////////////////////////////
-
-// // DIFFERENT DATA! Contains movement dates, currency and locale
-
-// const account1 = {
-//   owner: "Jonas Schmedtmann",
-//   movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
-//   interestRate: 1.2, // %
-//   pin: 1111,
-
-//   movementsDates: [
-//     "2019-11-18T21:31:17.178Z",
-//     "2019-12-23T07:42:02.383Z",
-//     "2020-01-28T09:15:04.904Z",
-//     "2020-04-01T10:17:24.185Z",
-//     "2020-05-08T14:11:59.604Z",
-//     "2020-05-27T17:01:17.194Z",
-//     "2020-07-11T23:36:17.929Z",
-//     "2020-07-17T10:51:36.790Z",
-//   ],
-//   currency: "EUR",
-//   locale: "pt-PT", // de-DE
-// };
-
-// const account2 = {
-//   owner: "Jessica Davis",
-//   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
-//   interestRate: 1.5,
-//   pin: 2222,
-
-//   movementsDates: [
-//     "2019-11-01T13:15:33.035Z",
-//     "2019-11-30T09:48:16.867Z",
-//     "2019-12-25T06:04:23.907Z",
-//     "2020-01-25T14:18:46.235Z",
-//     "2020-02-05T16:33:06.386Z",
-//     "2020-04-10T14:43:26.374Z",
-//     "2020-06-25T18:49:59.371Z",
-//     "2020-07-26T12:01:20.894Z",
-//   ],
-//   currency: "USD",
-//   locale: "en-US",
-// };
-
-// const accounts = [account1, account2];
-
-// /////////////////////////////////////////////////
-// // Elements
-// const labelWelcome = document.querySelector(".welcome");
-// const labelDate = document.querySelector(".date");
-// const labelBalance = document.querySelector(".balance__value");
-// const labelSumIn = document.querySelector(".summary__value--in");
-// const labelSumOut = document.querySelector(".summary__value--out");
-// const labelSumInterest = document.querySelector(".summary__value--interest");
-// const labelTimer = document.querySelector(".timer");
-
-// const containerApp = document.querySelector(".app");
-// const containerMovements = document.querySelector(".movements");
-
-// const btnLogin = document.querySelector(".login__btn");
-// const btnTransfer = document.querySelector(".form__btn--transfer");
-// const btnLoan = document.querySelector(".form__btn--loan");
-// const btnClose = document.querySelector(".form__btn--close");
-// const btnSort = document.querySelector(".btn--sort");
-
-// const inputLoginUsername = document.querySelector(".login__input--user");
-// const inputLoginPin = document.querySelector(".login__input--pin");
-// const inputTransferTo = document.querySelector(".form__input--to");
-// const inputTransferAmount = document.querySelector(".form__input--amount");
-// const inputLoanAmount = document.querySelector(".form__input--loan-amount");
-// const inputCloseUsername = document.querySelector(".form__input--user");
-// const inputClosePin = document.querySelector(".form__input--pin");
-
-// /////////////////////////////////////////////////
-// // Functions
-// const formatMovements = function (date) {
-//   const calcDaysPassed = (date1, date2) =>
-//     Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24)); // (s/min/hr/day)
-//   const daysPassed = calcDaysPassed(new Date(), date);
-//   if (daysPassed === 0) return "Today";
-//   if (daysPassed === 1) return "Yesterday";
-//   if (daysPassed <= 7) return `${daysPassed} days ago`;
-
-//   return new Intl.DateTimeFormat(currentAccount.locale).format(date);
-
-//   // const day = `${date.getDate()}`.padStart(2, "0");
-//   // const month = `${date.getMonth() + 1}`.padStart(2, "0");
-//   // const year = date.getFullYear();
-//   // return `${day}/${month}/${year}`;
-// };
-
-// //start logout timer
-
-// const startLogoutTimer = function () {
-//   const tick = function () {
-//     const min = String(Math.trunc(timer / 60)).padStart(2, "0");
-//     const sec = String(timer % 60).padStart(2, "0");
-//     labelTimer.textContent = `${min}:${sec}`;
-
-//     if (timer === 0) {
-//       clearInterval(time);
-//       labelWelcome.textContent = "Login to get started";
-//       containerApp.style.opacity = 0;
-//     }
-//     timer--;
-//   };
-//   let timer = 10;
-
-//   tick();
-//   const time = setInterval(tick, 1000);
-//   return time;
-// };
-// const displayMovements = function (acc, sort = false) {
-//   containerMovements.innerHTML = "";
-
-//   const movs = sort
-//     ? acc.movements.slice().sort((a, b) => a - b)
-//     : acc.movements;
-
-//   movs.forEach(function (mov, i) {
-//     const type = mov > 0 ? "deposit" : "withdrawal";
-//     const date = new Date(acc.movementsDates[i]); //Movement date
-//     const displayDate = formatMovements(date);
-//     const html = `
-//       <div class="movements__row">
-//         <div class="movements__type movements__type--${type}">${
-//       i + 1
-//     } ${type}</div>
-//     <div class="movements__date">${displayDate}</div>
-//         <div class="movements__value">${toInternational(mov)}</div>
-//       </div>
-//     `;
-
-//     containerMovements.insertAdjacentHTML("afterbegin", html);
-//   });
-// };
-
-// const calcDisplayBalance = function (acc) {
-//   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-//   labelBalance.textContent = toInternational(acc.balance);
-// };
-
-// const toInternational = function (num, acc = currentAccount) {
-//   return new Intl.NumberFormat(currentAccount.locale, {
-//     style: "currency",
-//     currency: currentAccount.currency,
-//   }).format(num);
-// };
-// const calcDisplaySummary = function (acc) {
-//   const incomes = acc.movements
-//     .filter((mov) => mov > 0)
-//     .reduce((acc, mov) => acc + mov, 0);
-//   labelSumIn.textContent = toInternational(incomes);
-//   const out = acc.movements
-//     .filter((mov) => mov < 0)
-//     .reduce((acc, mov) => acc + mov, 0);
-//   labelSumOut.textContent = toInternational(-out);
-
-//   const interest = acc.movements
-//     .filter((mov) => mov > 0)
-//     .map((deposit) => (deposit * acc.interestRate) / 100)
-//     .filter((int, i, arr) => {
-//       // console.log(arr);
-//       return int >= 1;
-//     })
-//     .reduce((acc, int) => acc + int, 0);
-//   labelSumInterest.textContent = toInternational(interest);
-// };
-
-// const createUsernames = function (accs) {
-//   accs.forEach(function (acc) {
-//     acc.username = acc.owner
-//       .toLowerCase()
-//       .split(" ")
-//       .map((name) => name[0])
-//       .join("");
-//   });
-// };
-// createUsernames(accounts);
-
-// const updateUI = function (acc) {
-//   // Display movements
-//   displayMovements(acc);
-
-//   // Display balance
-//   calcDisplayBalance(acc);
-
-//   // Display summary
-//   calcDisplaySummary(acc);
-// };
-
-// ///////////////////////////////////////
-// // Event handlers
-// let currentAccount, time;
-
-// //day/moth/year-format intended
-
-// btnLogin.addEventListener("click", function (e) {
-//   // Prevent form from submitting
-//   e.preventDefault();
-
-//   currentAccount = accounts.find(
-//     (acc) => acc.username === inputLoginUsername.value
-//   );
-//   console.log(currentAccount);
-
-//   if (currentAccount?.pin === Number(inputLoginPin.value)) {
-//     // Display UI and message
-//     labelWelcome.textContent = `Welcome back, ${
-//       currentAccount.owner.split(" ")[0]
-//     }`;
-//     containerApp.style.opacity = 100;
-//     const now = new Date();
-//     const options = {
-//       hour: "numeric",
-//       minute: "numeric",
-//       day: "numeric",
-//       month: "numeric",
-//       year: "numeric",
-//     };
-
-//     labelDate.textContent = new Intl.DateTimeFormat(
-//       currentAccount.locale,
-//       options
-//     ).format(now);
-//     // Clear input fields
-//     inputLoginUsername.value = inputLoginPin.value = "";
-//     inputLoginPin.blur();
-//     if (time) {
-//       clearInterval(time);
-//     }
-//     time = startLogoutTimer();
-//     // Update UI
-//     updateUI(currentAccount);
-//   }
-// });
-
-// btnTransfer.addEventListener("click", function (e) {
-//   e.preventDefault();
-//   const amount = Number(inputTransferAmount.value);
-//   const receiverAcc = accounts.find(
-//     (acc) => acc.username === inputTransferTo.value
-//   );
-//   inputTransferAmount.value = inputTransferTo.value = "";
-
-//   if (
-//     amount > 0 &&
-//     receiverAcc &&
-//     currentAccount.balance >= amount &&
-//     receiverAcc?.username !== currentAccount.username
-//   ) {
-//     // Doing the transfer
-//     currentAccount.movements.push(-amount);
-//     receiverAcc.movements.push(amount);
-//     //Add transfer date
-//     currentAccount.movementsDates.push(new Date().toISOString());
-//     receiverAcc.movementsDates.push(new Date().toISOString());
-
-//     // Update UI
-//     updateUI(currentAccount);
-
-//     //Reset timer
-
-//     clearInterval(time);
-//     time = startLogoutTimer();
-//   }
-// });
-
-// btnLoan.addEventListener("click", function (e) {
-//   e.preventDefault();
-
-//   const amount = Number(inputLoanAmount.value);
-
-//   if (
-//     amount > 0 &&
-//     currentAccount.movements.some((mov) => mov >= amount * 0.1)
-//   ) {
-//     // Add movement
-//     setTimeout(function () {
-//       currentAccount.movements.push(amount);
-//       currentAccount.movementsDates.push(new Date().toISOString());
-
-//       // Update UI
-//       updateUI(currentAccount);
-//     }, 2500);
-//   } else {
-//     alert("Loan not approved");
-//   }
-//   inputLoanAmount.value = "";
-//   //Reset timer
-
-//   clearInterval(time);
-//   time = startLogoutTimer();
-// });
-
-// btnClose.addEventListener("click", function (e) {
-//   e.preventDefault();
-
-//   if (
-//     inputCloseUsername.value === currentAccount.username &&
-//     Number(inputClosePin.value) === currentAccount.pin
-//   ) {
-//     const index = accounts.findIndex(
-//       (acc) => acc.username === currentAccount.username
-//     );
-//     console.log(index);
-//     // .indexOf(23)
-
-//     // Delete account
-//     accounts.splice(index, 1);
-
-//     // Hide UI
-//     containerApp.style.opacity = 0;
-//   }
-
-//   inputCloseUsername.value = inputClosePin.value = "";
-// });
-
-// let sorted = false;
-// btnSort.addEventListener("click", function (e) {
-//   e.preventDefault();
-//   displayMovements(currentAccount, !sorted);
-//   sorted = !sorted;
-// });
-
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// LECTURES
-
-//Create a date
-
-//Dates
-//Timer
-
-// const ingredients = ["spinach", "olives"];
-// const pizzaTimer = setTimeout(
-//   (ing1, ing2) => console.log(`The ingredients are ${ing1},${ing2}`),
-//   2500,
-//   ...[ingredients]
-// );
-// if (ingredients.includes("spinach")) clearTimeout(pizzaTimer);
-// let now = 55;
-
-// setInterval(function () {
-//   let now = new Date();
-//   const hour = now.getHours();
-//   const min = now.getMinutes();
-//   const sec = now.getSeconds();
-
-//   console.log(`The time right now is ${hour}:${min}:${sec}`);
-// }, 1000);
-//
 
 //Problem 1
 
@@ -1379,77 +1024,7 @@
 // );
 // console.log(uniqueStyles(["Funk", "Funk", "Funk", "Funk", "Funk"]));
 
-// let user = "John";
-
-// console.log(user ?? "Anonymous"); // John (user is not null/undefined)
-// function sum(...arguments) {
-
-//   return arguments.reduce((acc, val) => acc + val); // What's the issue here?
-// }
-// console.log(sum(1, 2, 3)); // How can you fix this function?
-
-// function factorial(n) {
-//   return n <= 1 ? 1 : factorial(n - 1) * n;
-// }
-
-// console.log(factorial(5))
-
-// let user = {
-//   name: "John",
-//   age: 30,
-// };
-
-// let key = "name";
-// console.log(user[key]); // undefined
-// console.log("name" in user);
-
-// let codes = {
-//   "+49": "Germany",
-//   "+41": "Switzerland",
-//   "+44": "Great Britain",
-//   // ..,
-//   "+1": "USA",
-// };
-
-// for (let code of Object.values(codes)) {
-//   console.log(code); // 1, 41, 44, 49
-// }
-// console.log(typeof (48 + ""));
-
-// function add(a, b) {
-//   return +a + +b;
-// }
-// const result = add("2", 3); // Coercion of the string '3' to a number
-// console.log(result);
-
-// let user = {
-//   name: "John",
-//   hi() {
-//     console.log(this.name);
-//     let a = () => console.log(this.name);
-//     a();
-//   },
-// };
-// let user2 = {
-//   name: "araon",
-// };
-
-// let hello = user.hi;
-//  hello.call(user);
-
-// let admin = user; // copy the reference
-// admin["name"] = "mike";
-// let newUser = {};
-// let user = { name: "John" };
-
-// let permissions1 = { canView: true };
-// let permissions2 = { canEdit: true };
-
-// // copies all properties from permissions1 and permissions2 into user
-// Object.assign(newUser, user, permissions1, permissions2);
-
-// // now user = { name: "John", canView: true, canEdit: true }
-// console.log(Number('name'))
+/
 
 //BACKSPACE ATTACK
 
@@ -1776,15 +1351,74 @@ function returnUnique(arr) {
   return nonRepeatingArr;
 }
 
-let createCounter = function (n) {
-  return function () {
-    return [n++];
+// let createCounter = function (n) {
+//   return function () {
+//     return [n++];
+//   };
+// };
+// const counter = createCounter(10);
+// console.log(counter());
+// console.log(counter());
+// console.log(counter());
+
+//2629. Function Composition(LC)
+
+//Given an array of functions [f1, f2, f3, ..., fn], return a new function fn that is the function composition of the array of functions.
+
+// The function composition of [f(x), g(x), h(x)] is fn(x) = f(g(h(x))).
+
+// The function composition of an empty list of functions is the identity function f(x) = x.
+
+// You may assume each function in the array accepts one integer as input and returns one integer as output.
+
+var compose = function (functions) {
+  const len = functions.length;
+  return function (x) {
+    for (let i = len - 1; i >= 0; i--) {
+      x = functions[i](x);
+    }
+    return x;
   };
 };
 
+const fn = compose([(x) => x + 1, (x) => 2 * x]);
+// console.log(compose([])(42));
 
-const counter = createCounter(10);
-console.log(counter());
-console.log(counter());
-console.log(counter());
+// 2634. Filter Elements from Array(LC)
 
+// Given an integer array arr and a filtering function fn, return a filtered array filteredArr.
+
+// The fn function takes one or two arguments:
+
+// arr[i] - number from the arr
+// i - index of arr[i]
+// filteredArr should only contain the elements from the arr for which the expression fn(arr[i], i) evaluates to a truthy value. A truthy value is a value where Boolean(value) returns true.
+
+// Please solve it without the built-in Array.filter method.
+const arr = [-2, -1, 0, 1, 2];
+
+// var filter = function (arr, fn) {
+//   const len = arr.length;
+//   let results = [];
+//   for (let i = 0; i < arr.length; i++) {
+//     fn(arr[i], i) ? results.push(arr[i]) : arr[i];
+//   }
+//   return results;
+// };
+
+var filter = function (arr, fn) {
+  let i = 0;
+  let results = [];
+  const len = arr.length;
+
+  while (i < len) {
+    fn(arr[i], i) ? results.push(arr[i]) : arr[i];
+    i++;
+  }
+  return results;
+};
+console.log(
+  filter(arr, function plusOne(n) {
+    return n + 1;
+  })
+);
