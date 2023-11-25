@@ -1,7 +1,5 @@
 "use strict";
 
-
-
 //Problem 1
 
 //Learnings .toFixed works on numbers
@@ -1024,8 +1022,6 @@
 // );
 // console.log(uniqueStyles(["Funk", "Funk", "Funk", "Funk", "Funk"]));
 
-/
-
 //BACKSPACE ATTACK
 
 //Suppose a hash # represents the BACKSPACE key being pressed.
@@ -1371,18 +1367,18 @@ function returnUnique(arr) {
 
 // You may assume each function in the array accepts one integer as input and returns one integer as output.
 
-var compose = function (functions) {
-  const len = functions.length;
-  return function (x) {
-    for (let i = len - 1; i >= 0; i--) {
-      x = functions[i](x);
-    }
-    return x;
-  };
-};
+// var compose = function (functions) {
+//   const len = functions.length;
+//   return function (x) {
+//     for (let i = len - 1; i >= 0; i--) {
+//       x = functions[i](x);
+//     }
+//     return x;
+//   };
+// };
 
-const fn = compose([(x) => x + 1, (x) => 2 * x]);
-// console.log(compose([])(42));
+// const fn = compose([(x) => x + 1, (x) => 2 * x]);
+// // console.log(compose([])(42));
 
 // 2634. Filter Elements from Array(LC)
 
@@ -1395,7 +1391,7 @@ const fn = compose([(x) => x + 1, (x) => 2 * x]);
 // filteredArr should only contain the elements from the arr for which the expression fn(arr[i], i) evaluates to a truthy value. A truthy value is a value where Boolean(value) returns true.
 
 // Please solve it without the built-in Array.filter method.
-const arr = [-2, -1, 0, 1, 2];
+// const arr = [-2, -1, 0, 1, 2];
 
 // var filter = function (arr, fn) {
 //   const len = arr.length;
@@ -1406,19 +1402,88 @@ const arr = [-2, -1, 0, 1, 2];
 //   return results;
 // };
 
-var filter = function (arr, fn) {
-  let i = 0;
-  let results = [];
-  const len = arr.length;
+// var filter = function (arr, fn) {
+//   let i = 0;
+//   let results = [];
+//   const len = arr.length;
 
-  while (i < len) {
-    fn(arr[i], i) ? results.push(arr[i]) : arr[i];
-    i++;
+//   while (i < len) {
+//     fn(arr[i], i) ? results.push(arr[i]) : arr[i];
+//     i++;
+//   }
+//   return results;
+// };
+// console.log(
+//   filter(arr, function plusOne(n) {
+//     return n + 1;
+//   })
+// );
+// Array.prototype.last = function () {
+
+//   if (arr.length > 0) {
+//     return arr[arr.length - 1];
+//   }
+
+//   return -1;
+// };
+
+// const arr = [];
+// console.log(arr.last());
+
+// var createCounter = function (init) {
+//   let currentVal = init;
+//   return {
+//     increment() {
+//       return (init = init + 1);
+//     },
+//     decrement() {
+//       return (init = init - 1);
+//     },
+//     reset() {
+//       init = currentVal;
+//       return init;
+//     },
+//   };
+// };
+
+// const counter = createCounter(5);
+// console.log(counter.increment());
+// console.log(counter.reset());
+// console.log(counter.decrement());
+
+// var once = (function () {
+//   var executed = false;
+
+//   return function (fn) {
+//     return function (...args) {
+//       if (!executed) {
+//         executed = true;
+//         return fn(...args);
+//       }
+
+//       return undefined;
+//     };
+//   };
+// })();
+// let fn = (a, b, c) => a * b *c;
+// let onceFn = once(fn)
+// console.log(onceFn( 1, 2, 3)); // logs 6
+// console.log(onceFn( 5,7,8)); // logs 6
+
+var chunk = function (arr, size) {
+  const len = arr.length;
+  let result = [];
+
+  if (len === 0) return [];
+  for (let i = 0; i < len; i++) {
+    if (arr.length === 0) {
+    } else {
+      let sliced = arr.splice(0, size);
+      result.push(sliced);
+    }
   }
-  return results;
+  return result;
 };
-console.log(
-  filter(arr, function plusOne(n) {
-    return n + 1;
-  })
-);
+console.log(chunk([1, 2, 3, 4, 5], 6));
+
+
