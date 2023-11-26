@@ -1470,20 +1470,149 @@ function returnUnique(arr) {
 // console.log(onceFn( 1, 2, 3)); // logs 6
 // console.log(onceFn( 5,7,8)); // logs 6
 
-var chunk = function (arr, size) {
+// var chunk = function (arr, size) {
+//   const len = arr.length;
+//   let result = [];
+
+//   if (len === 0) return [];
+//   for (let i = 0; i < len; i++) {
+//     if (arr.length === 0) {
+//     } else {
+//       let sliced = arr.splice(0, size);
+//       result.push(sliced);
+//     }
+//   }
+//   return result;
+// };
+// console.log(chunk([1, 2, 3, 4, 5], 6));
+
+// var getSumAbsoluteDifferences = function (arr) {
+//   const len = arr.length;
+//   let result = [];
+//   for (let i = 0; i < len; i++) {
+//     let sum = 0;
+//     for (let k = 0; k < len; k++) {
+//       sum += Math.abs(arr[i] - arr[k]);
+//     }
+//     result.push(sum);
+//   }
+//   return result;
+// };
+var getSumAbsoluteDifferences = function (arr) {
+  let totalSum = arr.reduce((acc, curr) => acc + curr, 0);
   const len = arr.length;
+  let runningSum = 0;
   let result = [];
 
-  if (len === 0) return [];
   for (let i = 0; i < len; i++) {
-    if (arr.length === 0) {
-    } else {
-      let sliced = arr.splice(0, size);
-      result.push(sliced);
-    }
+    runningSum += arr[i];
+    const leftSum = arr[i] * (i + 1) - runningSum;
+
+    const rightSum = totalSum - arr[i] * (len - (i + 1)) - runningSum;
+    result.push(leftSum + rightSum);
   }
+
   return result;
 };
-console.log(chunk([1, 2, 3, 4, 5], 6));
 
+// console.log(getSumAbsoluteDifferences([1, 4, 6, 8, 10, 11]));
 
+//  [34, 22, 18, 18, 22, 26]
+
+// var lengthOfLongestSubstring = function (arr) {
+//   const len = arr.length;
+//   let largestStr = "";
+//   let max = 0;
+//   let maxStr;
+
+//   for (let i = 0; i < len; i++) {
+//     if (!largestStr.includes(arr[i])) {
+//       largestStr += arr[i];
+//     } else {
+//       if (largestStr.length > max) {
+//         max = largestStr.length;
+//         maxStr = largestStr;
+//       }
+//       largestStr = "";
+//       largestStr += arr[i];
+//     }
+//   }
+//   return;
+// };
+// var lengthOfLongestSubstring = function (arr) {
+//   const len = arr.length;
+//   if (len === (0 || 1)) return len;
+//   let largestStr = "";
+//   let moved = 0,
+//     maxLength = 0,
+//     elseCounter = 0;
+//   for (let i = 0; i < len; i++) {
+//     if (!largestStr.includes(arr[i])) {
+//       largestStr += arr[i];
+//     } else {
+//       elseCounter++;
+//       if (maxLength < largestStr.length) {
+//         maxLength = largestStr.length;
+//       }
+
+//       moved = largestStr.length;
+//       largestStr = largestStr.slice(i + 1);
+//       i = Math.abs(moved - i);
+//     }
+//   }
+
+//   if (elseCounter || elseCounter === 0) {
+//     return Math.max(largestStr.length, maxLength);
+//   }
+// };
+// var lengthOfLongestSubstring = function (arr) {
+//   const len = arr.length;
+//   if (len === 0 || len === 1) return len;
+
+//   let maxLength = 0;
+//   let start = 0;
+//   let charIndexMap = {};
+
+//   for (let i = 0; i < len; i++) {
+//     const currentChar = arr[i];
+
+//     if (charIndexMap[currentChar] !== undefined && charIndexMap[currentChar] >= start) {
+//       start = charIndexMap[currentChar] + 1;
+//     }
+// console.log(charIndexMap)
+//     charIndexMap[currentChar] = i;
+//     console.log(maxLength)
+//     maxLength = Math.max(maxLength, i - start + 1);
+//   }
+
+//   return maxLength;
+// };
+// console.log(lengthOfLongestSubstring("aav"));
+
+// function insertWhitespace(s) {
+//   let alphabets = s.match(/[A-Z]/g);
+//   s = s.split("");
+//   for (let i = 1; i < alphabets.length; i++) {
+//     let index = s.indexOf(alphabets[i]);
+//     s[index-1]=s[index-1]+' '
+//     console.log(s);
+
+//   }
+//   return s.join('');
+// }
+
+//
+// function insertWhitespace(s) {
+//   let modStr = "";
+//   for (let i = 0; i < s.length; i++) {
+//     if (i === 0) {
+//       modStr += s[i];
+//     } else {
+//       s[i] === s[i].toUpperCase() && isNaN(s[i])
+//         ? (modStr = modStr + " " + s[i].toUpperCase())
+//         : (modStr += s[i]);
+//     }
+//   }
+//   return modStr;
+// }
+// console.log(insertWhitespace("She1WalksToTheBeach"));
