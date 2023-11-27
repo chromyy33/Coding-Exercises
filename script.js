@@ -1498,22 +1498,22 @@ function returnUnique(arr) {
 //   }
 //   return result;
 // };
-var getSumAbsoluteDifferences = function (arr) {
-  let totalSum = arr.reduce((acc, curr) => acc + curr, 0);
-  const len = arr.length;
-  let runningSum = 0;
-  let result = [];
+// var getSumAbsoluteDifferences = function (arr) {
+//   let totalSum = arr.reduce((acc, curr) => acc + curr, 0);
+//   const len = arr.length;
+//   let runningSum = 0;
+//   let result = [];
 
-  for (let i = 0; i < len; i++) {
-    runningSum += arr[i];
-    const leftSum = arr[i] * (i + 1) - runningSum;
+//   for (let i = 0; i < len; i++) {
+//     runningSum += arr[i];
+//     const leftSum = arr[i] * (i + 1) - runningSum;
 
-    const rightSum = totalSum - arr[i] * (len - (i + 1)) - runningSum;
-    result.push(leftSum + rightSum);
-  }
+//     const rightSum = totalSum - arr[i] * (len - (i + 1)) - runningSum;
+//     result.push(leftSum + rightSum);
+//   }
 
-  return result;
-};
+//   return result;
+// };
 
 // console.log(getSumAbsoluteDifferences([1, 4, 6, 8, 10, 11]));
 
@@ -1616,3 +1616,24 @@ var getSumAbsoluteDifferences = function (arr) {
 //   return modStr;
 // }
 // console.log(insertWhitespace("She1WalksToTheBeach"));
+//--------------------------------------------------------------
+// Modify Words
+// Create a function that takes an array of any length. Modify each element (capitalize, reverse, hyphenate).
+
+function editWords(arr) {
+  let results = []; // empty array to store results for multiple values
+  for (let i = 0; i < arr.length; i++) {
+    let arrSplit = arr[i].split(""); //converting string to arr
+    let index =
+      arrSplit.length % 2 === 0
+        ? arrSplit.length / 2
+        : Math.trunc(arrSplit.length / 2); // checking for arr middle point for '-' insertion
+    arrSplit.splice(index, 0, "-"); //saying splice 0 items at index 'index'(var) and add '-'
+
+    results.push(arrSplit.reverse().join("").toUpperCase()); //reverse,join and uppercase and push in results arr
+  }
+  return results;
+}
+
+// console.log(editWords(["new york city"]));
+console.log(editWords([""]));
