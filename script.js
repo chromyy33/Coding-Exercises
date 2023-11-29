@@ -1643,16 +1643,60 @@ function returnUnique(arr) {
 //Create an ordered 2D array (matrix). A matrix is ordered if its (0, 0) element is 1, its (0, 1) element is 2, and so on.
 // Your function needs to create an a × b matrix. a is the first argument and b is the second.
 
-function orderedMatrix(a, b) {
-  let results = [];
+// function orderedMatrix(a, b) {
+//   let results = [];
 
-  for (let k = 0; k < a; k++) {
-    let nums = [];
-    for (let i = 1; i < b + 1; i++) {
-      nums.push(b * k + i); //5 * 0 + 1 and so on
+//   for (let k = 0; k < a; k++) {
+//     let nums = [];
+//     for (let i = 1; i < b + 1; i++) {
+//       nums.push(b * k + i); //5 * 0 + 1 and so on
+//     }
+//     results.push(nums);
+//   }
+//   return results;
+// }
+// console.log(orderedMatrix(3, 5));
+
+//----------------------------------------------
+// Even vs. Odds
+
+// Odd numbers like to hangout with odd numbers. Even numbers like to hangout with even numbers.
+
+// A spot is an insertion between two numbers in an array. Given an array of n integers in length, there are n-1 spots available.
+
+// For instance:
+
+// [3, 4, 9, 10, 1]  // Array of 5 digits can also be thought of as...
+
+// [3, __ , 4, __ , 9, __, 10, __, 1]  // ...an array of 4 spots.
+// After a number is newly inserted into a spot, it's left neighbor is the number directly to the left of it and it's right neighbor is the number directly to the right of it.
+
+// For instance:
+
+// [3, 6, 4, 9, 10, 1]  // Left neighbor of 6 is 3, right neighbor of 6 is 4.
+// Odd numbers like having the following (left neighbor, right neighbor combinations): (odd, even), (even, odd), (odd, odd) .They dislike having both neighbors being even, or (even, even).
+
+// Similarly, even numbers like the following neighbor combinations: (even, odd), (odd, even), (even, even). They dislike having both neighbors being odd, or (odd, odd).
+
+// Given an array, calculate the number of liked spots.
+
+//Soln
+
+function availableSpots(arr, num) {
+  let counter = 0;
+  for (let i = 0; i < arr.length - 1; i++) {
+    let type = num % 2 == 0 ? "even" : "odd";
+
+    if (type === "even") {
+      let isNeighbor = arr[i] % 2 === 0 || arr[i + 1] % 2 === 0;
+      isNeighbor ? counter++ : counter;
     }
-    results.push(nums);
+
+    if (type === "odd") {
+      let isNeighbor = arr[i] % 2 !== 0 || arr[i + 1] % 2 !== 0;
+      isNeighbor ? counter++ : counter;
+    }
   }
-  return results;
+  return counter;
 }
-console.log(orderedMatrix(3, 5));
+
