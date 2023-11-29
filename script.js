@@ -1620,20 +1620,39 @@ function returnUnique(arr) {
 // Modify Words
 // Create a function that takes an array of any length. Modify each element (capitalize, reverse, hyphenate).
 
-function editWords(arr) {
-  let results = []; // empty array to store results for multiple values
-  for (let i = 0; i < arr.length; i++) {
-    let arrSplit = arr[i].split(""); //converting string to arr
-    let index =
-      arrSplit.length % 2 === 0
-        ? arrSplit.length / 2
-        : Math.trunc(arrSplit.length / 2); // checking for arr middle point for '-' insertion
-    arrSplit.splice(index, 0, "-"); //saying splice 0 items at index 'index'(var) and add '-'
+// function editWords(arr) {
+//   let results = []; // empty array to store results for multiple values
+//   for (let i = 0; i < arr.length; i++) {
+//     let arrSplit = arr[i].split(""); //converting string to arr
+//     let index =
+//       arrSplit.length % 2 === 0
+//         ? arrSplit.length / 2
+//         : Math.trunc(arrSplit.length / 2); // checking for arr middle point for '-' insertion
+//     arrSplit.splice(index, 0, "-"); //saying splice 0 items at index 'index'(var) and add '-'
 
-    results.push(arrSplit.reverse().join("").toUpperCase()); //reverse,join and uppercase and push in results arr
+//     results.push(arrSplit.reverse().join("").toUpperCase()); //reverse,join and uppercase and push in results arr
+//   }
+//   return results;
+// }
+
+// console.log(editWords(["new york city"]));
+// console.log(editWords([""]));
+//--------------------------------------------------------------------
+
+//An Ordered Matrix
+//Create an ordered 2D array (matrix). A matrix is ordered if its (0, 0) element is 1, its (0, 1) element is 2, and so on.
+// Your function needs to create an a × b matrix. a is the first argument and b is the second.
+
+function orderedMatrix(a, b) {
+  let results = [];
+
+  for (let k = 0; k < a; k++) {
+    let nums = [];
+    for (let i = 1; i < b + 1; i++) {
+      nums.push(b * k + i); //5 * 0 + 1 and so on
+    }
+    results.push(nums);
   }
   return results;
 }
-
-// console.log(editWords(["new york city"]));
-console.log(editWords([""]));
+console.log(orderedMatrix(3, 5));
