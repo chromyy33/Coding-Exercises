@@ -1682,21 +1682,136 @@ function returnUnique(arr) {
 
 //Soln
 
-function availableSpots(arr, num) {
-  let counter = 0;
-  for (let i = 0; i < arr.length - 1; i++) {
-    let type = num % 2 == 0 ? "even" : "odd";
+// function availableSpots(arr, num) {
+//   let counter = 0;
+//   for (let i = 0; i < arr.length - 1; i++) {
+//     let type = num % 2 == 0 ? "even" : "odd";
 
-    if (type === "even") {
-      let isNeighbor = arr[i] % 2 === 0 || arr[i + 1] % 2 === 0;
-      isNeighbor ? counter++ : counter;
-    }
+//     if (type === "even") {
+//       let isNeighbor = arr[i] % 2 === 0 || arr[i + 1] % 2 === 0;
+//       isNeighbor ? counter++ : counter;
+//     }
 
-    if (type === "odd") {
-      let isNeighbor = arr[i] % 2 !== 0 || arr[i + 1] % 2 !== 0;
-      isNeighbor ? counter++ : counter;
+//     if (type === "odd") {
+//       let isNeighbor = arr[i] % 2 !== 0 || arr[i + 1] % 2 !== 0;
+//       isNeighbor ? counter++ : counter;
+//     }
+//   }
+//   return counter;
+// }
+
+// --------------------------------------------------------------------------
+// Concatenate to Form Target Array
+// Create a function that returns true if smaller arrays can concatenate to form the target array and false otherwise.
+
+// Examples
+// canConcatenate([[1, 2, 3, 4], [5, 6], [7]], [1, 2, 3, 4, 5, 6, 7]) ➞ true
+
+// canConcatenate([[2, 1, 3], [5, 4, 7, 6]], [7, 6, 5, 4, 3, 2, 1]) ➞ true
+
+// canConcatenate([[2, 1, 3], [5, 4, 7, 6, 7]], [1, 2, 3, 4, 5, 6, 7]) ➞ false
+// // Duplicate 7s not found in target array.
+
+// canConcatenate([[2, 1, 3], [5, 4, 7]], [1, 2, 3, 4, 5, 6, 7]) ➞ false
+// Missing 6 from target array.
+
+function canConcatenate(arr, target) {
+  let finalArr = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    finalArr = [...finalArr, ...arr[i]];
+  }
+  function arrMatch(a, b) {
+    return a.every((val, index) => val === b[index]);
+  }
+  function sort(arr) {
+    return arr.sort((a, b) => a - b);
+  }
+  return arrMatch(sort(finalArr), sort(target));
+}
+console.log(canConcatenate([[1, 2, 3, 4], [5, 6], [7]], [1, 2, 3, 4, 5, 6, 7]));
+console.log(
+  canConcatenate(
+    [
+      [2, 1, 3],
+      [5, 4, 7, 6],
+    ],
+    [7, 6, 5, 4, 3, 2, 1]
+  )
+);
+console.log(
+  canConcatenate(
+    [
+      [2, 1, 3],
+      [5, 4, 7, 6, 7],
+    ],
+    [1, 2, 3, 4, 5, 6, 7]
+  )
+);
+
+// Imaginary Coding Interview
+// Create a function to check if a candidate is qualified in an imaginary coding interview of an imaginary tech startup.
+
+// The criteria for a candidate to be qualified in the coding interview is:
+
+// The candidate should have complete all the questions.
+// The maximum time given to complete the interview is 120 minutes.
+// The maximum time given for very easy questions is 5 minutes each.
+// The maximum time given for easy questions is 10 minutes each.
+// The maximum time given for medium questions is 15 minutes each.
+// The maximum time given for hard questions is 20 minutes each.
+// If all the above conditions are satisfied, return "qualified", else return "disqualified".
+
+// You will be given an array of time taken by a candidate to solve a particular question and the total time taken by the candidate to complete the interview.
+
+// Given an array, in a true condition will always be in the format [very easy, very easy, easy, easy, medium, medium, hard, hard].
+
+// The maximum time to complete the interview includes a buffer time of 20 minutes.
+
+//-----------------------------------------------------------------------------------
+
+function interview(arr, tot) {
+  const answerKey = {
+    "very easy": 5,
+    easy: 10,
+    medium: 15,
+    hard: 20,
+  };
+  const questionsType = [
+    "very easy",
+    "very easy",
+    "easy",
+    "easy",
+    "medium",
+    "medium",
+    "hard",
+    "hard",
+  ];
+  let i;
+  let question;
+  if (arr.length !== questionsType.length)
+    return "Disqualified, cause missing a question";
+
+  let passed = false;
+  for (i = 0; i < arr.length; i++) {
+    if (answerKey[questionsType[i]] >= arr[i]) {
+      passed = true;
+    } else {
+      question = i;
+
+      passed = false;
+      break;
     }
   }
-  return counter;
-}
 
+  let a;
+  return (a =
+    passed === false
+      ? `Disqualified, Candidate took extra time in ${questionsType[i]} question`
+      : tot <= 120
+      ? "Qualified"
+      : "Disqualified, Candidate took more than 120 minutes");
+}
+console.log(interview([5, 5, 10, 10, 25, 15, 20, 20], 120));
+console.log(interview([5, 5, 10, 10, 15, 15, 20, 20], 130));
+console.log(interview([5, 5, 10, 10, 15, 20, 20], 120));
