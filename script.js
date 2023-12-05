@@ -1715,39 +1715,39 @@ function returnUnique(arr) {
 // canConcatenate([[2, 1, 3], [5, 4, 7]], [1, 2, 3, 4, 5, 6, 7]) ➞ false
 // Missing 6 from target array.
 
-function canConcatenate(arr, target) {
-  let finalArr = [];
+// function canConcatenate(arr, target) {
+//   let finalArr = [];
 
-  for (let i = 0; i < arr.length; i++) {
-    finalArr = [...finalArr, ...arr[i]];
-  }
-  function arrMatch(a, b) {
-    return a.every((val, index) => val === b[index]);
-  }
-  function sort(arr) {
-    return arr.sort((a, b) => a - b);
-  }
-  return arrMatch(sort(finalArr), sort(target));
-}
-console.log(canConcatenate([[1, 2, 3, 4], [5, 6], [7]], [1, 2, 3, 4, 5, 6, 7]));
-console.log(
-  canConcatenate(
-    [
-      [2, 1, 3],
-      [5, 4, 7, 6],
-    ],
-    [7, 6, 5, 4, 3, 2, 1]
-  )
-);
-console.log(
-  canConcatenate(
-    [
-      [2, 1, 3],
-      [5, 4, 7, 6, 7],
-    ],
-    [1, 2, 3, 4, 5, 6, 7]
-  )
-);
+//   for (let i = 0; i < arr.length; i++) {
+//     finalArr = [...finalArr, ...arr[i]];
+//   }
+//   function arrMatch(a, b) {
+//     return a.every((val, index) => val === b[index]);
+//   }
+//   function sort(arr) {
+//     return arr.sort((a, b) => a - b);
+//   }
+//   return arrMatch(sort(finalArr), sort(target));
+// }
+// console.log(canConcatenate([[1, 2, 3, 4], [5, 6], [7]], [1, 2, 3, 4, 5, 6, 7]));
+// console.log(
+//   canConcatenate(
+//     [
+//       [2, 1, 3],
+//       [5, 4, 7, 6],
+//     ],
+//     [7, 6, 5, 4, 3, 2, 1]
+//   )
+// );
+// console.log(
+//   canConcatenate(
+//     [
+//       [2, 1, 3],
+//       [5, 4, 7, 6, 7],
+//     ],
+//     [1, 2, 3, 4, 5, 6, 7]
+//   )
+// );
 
 // Imaginary Coding Interview
 // Create a function to check if a candidate is qualified in an imaginary coding interview of an imaginary tech startup.
@@ -1770,48 +1770,123 @@ console.log(
 
 //-----------------------------------------------------------------------------------
 
-function interview(arr, tot) {
-  const answerKey = {
-    "very easy": 5,
-    easy: 10,
-    medium: 15,
-    hard: 20,
-  };
-  const questionsType = [
-    "very easy",
-    "very easy",
-    "easy",
-    "easy",
-    "medium",
-    "medium",
-    "hard",
-    "hard",
-  ];
-  let i;
-  let question;
-  if (arr.length !== questionsType.length)
-    return "Disqualified, cause missing a question";
+// function interview(arr, tot) {
+//   const answerKey = {
+//     "very easy": 5,
+//     easy: 10,
+//     medium: 15,
+//     hard: 20,
+//   };
+//   const questionsType = [
+//     "very easy",
+//     "very easy",
+//     "easy",
+//     "easy",
+//     "medium",
+//     "medium",
+//     "hard",
+//     "hard",
+//   ];
+//   let i;
+//   let question;
+//   if (arr.length !== questionsType.length)
+//     return "Disqualified, cause missing a question";
 
-  let passed = false;
-  for (i = 0; i < arr.length; i++) {
-    if (answerKey[questionsType[i]] >= arr[i]) {
-      passed = true;
-    } else {
-      question = i;
+//   let passed = false;
+//   for (i = 0; i < arr.length; i++) {
+//     if (answerKey[questionsType[i]] >= arr[i]) {
+//       passed = true;
+//     } else {
+//       question = i;
 
-      passed = false;
-      break;
-    }
+//       passed = false;
+//       break;
+//     }
+//   }
+
+//   let a;
+//   return (a =
+//     passed === false
+//       ? `Disqualified, Candidate took extra time in ${questionsType[i]} question`
+//       : tot <= 120
+//       ? "Qualified"
+//       : "Disqualified, Candidate took more than 120 minutes");
+// }
+// console.log(interview([5, 5, 10, 10, 25, 15, 20, 20], 120));
+// console.log(interview([5, 5, 10, 10, 15, 15, 20, 20], 130));
+// console.log(interview([5, 5, 10, 10, 15, 20, 20], 120));
+//----------------------------------------------------------------
+
+// Positive Dominant
+// An array is positive dominant if it contains strictly more unique positive values than unique negative values. Write a function that returns true if an array is positive dominant.
+
+// Examples
+// isPositiveDominant([1, 1, 1, 1, -3, -4]) ➞ false
+// // There is only 1 unique positive value (1).
+// // There are 2 unique negative values (-3, -4).
+
+// isPositiveDominant([5, 99, 832, -3, -4]) ➞ true
+
+// isPositiveDominant([5, 0]) ➞ true
+
+// isPositiveDominant([0, -4, -1]) ➞ false
+// Notes
+// 0 counts as neither a positive nor a negative value.
+
+// function isPositiveDominant(arr) {
+//   let uniqueNumbers = [];
+//   let counterPos = 0;
+//   for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] === 0) continue;
+
+//     if (!uniqueNumbers.includes(arr[i])) {
+//       uniqueNumbers.push(arr[i]);
+//       arr[i] > 0 ? counterPos++ : counterPos--;
+//     }
+//   }
+//   return counterPos > 0 ? true : false;
+// }
+// console.log(isPositiveDominant([1, 1, 1, 1, -3, -4]));
+// console.log(isPositiveDominant([5, 0]));
+// console.log(isPositiveDominant([5, 4, 3, 0, 0, -1, -1, -2, -2]));
+// console.log(isPositiveDominant([3, 3, 3, 3, -1, -1, -1]));
+
+// Swapping Cards
+// Two players draw a pair of numbered cards so that both players can form a 2 digit number. A winner can be decided if one player's number is larger than the other.
+
+// However, there is a rule where a player can swap any one of their cards with any one of the other player's cards in a gamble to get a higher number! Note that it is illegal to swap the order of your own cards. That means if you draw a 1 then a 9, you cannot swap them to get 91.
+
+// Numbered Cards
+
+// Paul's strategy is to always swap his lowest number with the opponent's ten's digit. Return whether this results in Paul winning the round.
+
+// n1 is Paul's number
+// n2 is his opponent's number
+
+// Worked Example
+// swap_cards(41, 79) ➞ true
+// Paul's lowest number is 1
+// The opponent's ten's digit is 7
+// After the swap: 47 > 19
+// Paul wins the round
+
+function swapCards(n1, n2) {
+  n1 = String(n1).split("");
+  let lowestCard;
+  let tensCard = String(n2)[0];
+  if (n1[0] === n1[1]) {
+    lowestCard = n1[1];
+    n1.splice(1, 1, tensCard);
+    n1 = n1.join("");
+  } else {
+    lowestCard = n1[0] > n1[1] ? n1[1] : n1[0];
+    const index = n1.indexOf(lowestCard);
+    n1.splice(index, 1, tensCard);
+    n1 = n1.join("");
   }
-
-  let a;
-  return (a =
-    passed === false
-      ? `Disqualified, Candidate took extra time in ${questionsType[i]} question`
-      : tot <= 120
-      ? "Qualified"
-      : "Disqualified, Candidate took more than 120 minutes");
+  n2 = lowestCard + String(n2)[1];
+  return n1 > n2 ? true : false;
 }
-console.log(interview([5, 5, 10, 10, 25, 15, 20, 20], 120));
-console.log(interview([5, 5, 10, 10, 15, 15, 20, 20], 130));
-console.log(interview([5, 5, 10, 10, 15, 20, 20], 120));
+console.log(swapCards(41, 98));
+console.log(swapCards(88, 54));
+console.log(swapCards(48, 14));
