@@ -1870,23 +1870,158 @@ function returnUnique(arr) {
 // After the swap: 47 > 19
 // Paul wins the round
 
-function swapCards(n1, n2) {
-  n1 = String(n1).split("");
-  let lowestCard;
-  let tensCard = String(n2)[0];
-  if (n1[0] === n1[1]) {
-    lowestCard = n1[1];
-    n1.splice(1, 1, tensCard);
-    n1 = n1.join("");
-  } else {
-    lowestCard = n1[0] > n1[1] ? n1[1] : n1[0];
-    const index = n1.indexOf(lowestCard);
-    n1.splice(index, 1, tensCard);
-    n1 = n1.join("");
+// function swapCards(n1, n2) {
+//   n1 = String(n1).split("");
+//   let lowestCard;
+//   let tensCard = String(n2)[0];
+//   if (n1[0] === n1[1]) {
+//     lowestCard = n1[1];
+//     n1.splice(1, 1, tensCard);
+//     n1 = n1.join("");
+//   } else {
+//     lowestCard = n1[0] > n1[1] ? n1[1] : n1[0];
+//     const index = n1.indexOf(lowestCard);
+//     n1.splice(index, 1, tensCard);
+//     n1 = n1.join("");
+//   }
+//   n2 = lowestCard + String(n2)[1];
+//   return n1 > n2 ? true : false;
+// }
+// console.log(swapCards(41, 98));
+// console.log(swapCards(88, 54));
+// console.log(swapCards(48, 14));
+
+//------------------------------------------------------
+// Sort Authors Last Names Alphabetically
+// Today you volunteered as a librarian.
+// You were given an array of objects, each one containing different book information. You need to sort the objects in alphabetical order of the author's last name.
+
+// Examples
+// sortByLastName([
+//   { name: "Harry Potter", rating: "8+", author: "Joanne Rowling" },
+//   { name: "Warcross", rating: "13+", author: "Marie Lu" },
+//   { name: "The Hunger Games", rating: "12+", author: "Suzanne Collins" },
+// ]) ➞ [
+//   { name: "The Hunger Games", rating: "12+", author: "Suzanne Collins" },
+//   { name: "Warcross", rating: "13+", author: "Marie Lu" },
+//   { name: "Harry Potter", rating: "8+", author: "Joanne Rowling" },
+// ]
+// Notes
+// There will always be a name, rating, and author property on each object.
+// The array will never be empty.
+// The author property will always feature only a first and last name.
+
+// function sortByLastName(books) {
+//   let sortedBooks = books.sort((a, b) => {
+//     let lastNameA = a.author.split(" ")[1];
+//     let lastNameB = b.author.split(" ")[1];
+//     return lastNameA.localeCompare(lastNameB);
+//   });
+
+//   return sortedBooks;
+// }
+
+// console.log(
+//   sortByLastName([
+//     { name: "Harry Potter", rating: "8+", author: "Joanne Rowling" },
+//     { name: "Warcross", rating: "13+", author: "Marie Lu" },
+//     { name: "The Hunger Games", rating: "12+", author: "Suzanne Collins" },
+//   ])
+// );
+// console.log(
+//   sortByLastName([
+//     { name: "The Night Gardner", rating: "10+", author: "Jonathan Auxier" },
+//     { name: "Harry Potter", rating: "8+", author: "Joanne Rowling" },
+//   ])
+// );
+// console.log(
+//   sortByLastName([
+//     { name: "The Night Gardner", rating: "10+", author: "Jonathan Auxier" },
+//     { name: "The Selection", rating: "13+", author: "Kiera Cass" },
+//     {
+//       name: "The School for Good and Evil",
+//       rating: "11+",
+//       author: "Soman Chainani",
+//     },
+//     { name: "Warcross", rating: "13+", author: "Marie Lu" },
+//   ])
+// );
+
+//-----------------------------------
+// Current Streak
+// Create a function that takes the current day (e.g. "2019-09-30"), an array of date objects and returns the "current streak" (i.e. number of consecutive days in a row).
+
+// Examples
+// currentStreak("2019-09-23", [
+//   {
+//     "date": "2019-09-18"
+//   },
+//   {
+//     "date": "2019-09-19"
+//   },
+//   {
+//     "date": "2019-09-21"
+//   },
+//   {
+//     "date": "2019-09-22"
+//   },
+//   {
+//     "date": "2019-09-23"
+//   }
+// ])
+// Notes
+// The array of dates is sorted chronologically.
+// The today parameter will always be greater than or equal to the last date in the array.
+// An empty array should return 0.
+
+function currentStreak(today, arr) {
+  let currentDay = new Date(today).getDate() + 1;
+  let streakCounter = 0;
+
+  // Ensure the array is not empty
+  if (arr.length === 0) {
+    return 0;
   }
-  n2 = lowestCard + String(n2)[1];
-  return n1 > n2 ? true : false;
+
+  let lastDay = new Date(arr[arr.length - 1].date).getDate() + 1;
+  if (currentDay !== lastDay) {
+    return 0; // No streak if the last recorded day is not today
+  }
+  streakCounter++;
+  for (let i = arr.length - 2; i >= 0; i--) {
+    let day = new Date(arr[i].date).getDate() + 1;
+
+    if (lastDay - day === 1) {
+      // Update lastDay to the current day in the loop
+      lastDay = day;
+      streakCounter++;
+    } else {
+      break;
+    }
+  }
+
+  return streakCounter;
 }
-console.log(swapCards(41, 98));
-console.log(swapCards(88, 54));
-console.log(swapCards(48, 14));
+
+console.log(
+  currentStreak("2019-09-24", [
+    {
+      date: "2019-09-18",
+    },
+    {
+      date: "2019-09-19",
+    },
+    {
+      date: "2019-09-21",
+    },
+    {
+      date: "2019-09-22",
+    },
+    {
+      date: "2019-09-23",
+    },
+    {
+      date: "2019-09-24",
+    },
+  ])
+);
