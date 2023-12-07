@@ -2025,3 +2025,78 @@ console.log(
     },
   ])
 );
+//-----------------------------------------
+// Finding Common Elements
+// Create a function that takes two "sorted" arrays of numbers and returns an array of numbers which are common to both the input arrays.
+
+// Examples
+// commonElements([-1, 3, 4, 6, 7, 9], [1, 3]) ➞ [3]
+
+// commonElements([1, 3, 4, 6, 7, 9], [1, 2, 3, 4, 7, 10]) ➞ [1, 3, 4, 7]
+
+// commonElements([1, 2, 2, 2, 3, 4, 5], [1, 2, 4, 5]) ➞ [1, 2, 4, 5]
+
+// commonElements([1, 2, 3, 4, 5], [10, 12, 13, 15]) ➞ []
+// Notes
+// Arrays are sorted.
+// Try doing this problem with O(n + m) time complexity.
+
+function commonElements(arr1, arr2) {
+  let setArr2 = new Set(arr2);
+  let commonElements = [];
+  for (let i = 0; i < arr1.length; i++) {
+    setArr2.has(arr1[i]) ? commonElements.push(arr1[i]) : "";
+  }
+  return commonElements;
+}
+console.log(commonElements([1, 3, 4, 6, 7, 9], [1, 2, 3, 4, 7, 10]));
+//-------------------------------------------------------
+
+// Convert "Zero" and "One" to "1" and "0"
+// Create a function that takes a string as an argument. The function must return a string containing 1s and 0s based on the string argument's words. If any word in the argument is not equal to "zero" or "one" (case insensitive), you should ignore it. The returned string's length should be a multiple of 8, if the string is not a multiple of 8 you should remove the numbers in excess.
+
+// Examples
+// textToNumberBinary("zero one zero one zero one zero one") ➞ "01010101"
+
+// textToNumberBinary("Zero one zero ONE zero one zero one") ➞ "01010101"
+
+// textToNumberBinary("zero one zero one zero one zero one one two") ➞ "01010101"
+
+// textToNumberBinary("zero one zero one zero one zero three") ➞ ""
+
+// textToNumberBinary("one one") ➞ ""
+
+function textToNumberBinary(str) {
+  let numKey = {
+    one: 1,
+    zero: 0,
+  };
+  let strArr = str.split(" ");
+
+  if (strArr.length < 8) return "Less than 8 words";
+  for (let i = 0; i < strArr.length; i++) {
+    strArr[i] = strArr[i].toLowerCase();
+  }
+  let strSet = new Set(strArr);
+
+  if (strSet.size !== 2 && strArr.length < 8 + strSet.size - 2)
+    return "Argument not equal to zero or one";
+  let finalStr = "";
+  for (let i = 0; i < strArr.length; i++) {
+    if (numKey[strArr[i]] === undefined) continue;
+    finalStr += numKey[strArr[i]];
+  }
+  let rem = finalStr.length % 8;
+
+  return finalStr.slice(0, finalStr.length - rem);
+}
+console.log(textToNumberBinary("zero one zero one Zero one zero one"));
+
+console.log(textToNumberBinary("one one"));
+console.log(textToNumberBinary("zero one zero one zero one zero one one two"));
+console.log(
+  textToNumberBinary(
+    "One zero zero one zero one one one zero one one zero zero zero zero one zero one one one zero one one zero zero zero zero one zero one one one zero one one zero zero zero zero one zero one one one zero one one zero zero zero zero one zero one one one zero one one zero zero zero zero one zero"
+  )
+);
+console.log(textToNumberBinary('Two one zero one one zero one zero'))
