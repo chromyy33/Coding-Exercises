@@ -1974,57 +1974,57 @@ function returnUnique(arr) {
 // The today parameter will always be greater than or equal to the last date in the array.
 // An empty array should return 0.
 
-function currentStreak(today, arr) {
-  let currentDay = new Date(today).getDate() + 1;
-  let streakCounter = 0;
+// function currentStreak(today, arr) {
+//   let currentDay = new Date(today).getDate() + 1;
+//   let streakCounter = 0;
 
-  // Ensure the array is not empty
-  if (arr.length === 0) {
-    return 0;
-  }
+//   // Ensure the array is not empty
+//   if (arr.length === 0) {
+//     return 0;
+//   }
 
-  let lastDay = new Date(arr[arr.length - 1].date).getDate() + 1;
-  if (currentDay !== lastDay) {
-    return 0; // No streak if the last recorded day is not today
-  }
-  streakCounter++;
-  for (let i = arr.length - 2; i >= 0; i--) {
-    let day = new Date(arr[i].date).getDate() + 1;
+//   let lastDay = new Date(arr[arr.length - 1].date).getDate() + 1;
+//   if (currentDay !== lastDay) {
+//     return 0; // No streak if the last recorded day is not today
+//   }
+//   streakCounter++;
+//   for (let i = arr.length - 2; i >= 0; i--) {
+//     let day = new Date(arr[i].date).getDate() + 1;
 
-    if (lastDay - day === 1) {
-      // Update lastDay to the current day in the loop
-      lastDay = day;
-      streakCounter++;
-    } else {
-      break;
-    }
-  }
+//     if (lastDay - day === 1) {
+//       // Update lastDay to the current day in the loop
+//       lastDay = day;
+//       streakCounter++;
+//     } else {
+//       break;
+//     }
+//   }
 
-  return streakCounter;
-}
+//   return streakCounter;
+// }
 
-console.log(
-  currentStreak("2019-09-24", [
-    {
-      date: "2019-09-18",
-    },
-    {
-      date: "2019-09-19",
-    },
-    {
-      date: "2019-09-21",
-    },
-    {
-      date: "2019-09-22",
-    },
-    {
-      date: "2019-09-23",
-    },
-    {
-      date: "2019-09-24",
-    },
-  ])
-);
+// console.log(
+//   currentStreak("2019-09-24", [
+//     {
+//       date: "2019-09-18",
+//     },
+//     {
+//       date: "2019-09-19",
+//     },
+//     {
+//       date: "2019-09-21",
+//     },
+//     {
+//       date: "2019-09-22",
+//     },
+//     {
+//       date: "2019-09-23",
+//     },
+//     {
+//       date: "2019-09-24",
+//     },
+//   ])
+// );
 //-----------------------------------------
 // Finding Common Elements
 // Create a function that takes two "sorted" arrays of numbers and returns an array of numbers which are common to both the input arrays.
@@ -2041,15 +2041,15 @@ console.log(
 // Arrays are sorted.
 // Try doing this problem with O(n + m) time complexity.
 
-function commonElements(arr1, arr2) {
-  let setArr2 = new Set(arr2);
-  let commonElements = [];
-  for (let i = 0; i < arr1.length; i++) {
-    setArr2.has(arr1[i]) ? commonElements.push(arr1[i]) : "";
-  }
-  return commonElements;
-}
-console.log(commonElements([1, 3, 4, 6, 7, 9], [1, 2, 3, 4, 7, 10]));
+// function commonElements(arr1, arr2) {
+//   let setArr2 = new Set(arr2);
+//   let commonElements = [];
+//   for (let i = 0; i < arr1.length; i++) {
+//     setArr2.has(arr1[i]) ? commonElements.push(arr1[i]) : "";
+//   }
+//   return commonElements;
+// }
+// console.log(commonElements([1, 3, 4, 6, 7, 9], [1, 2, 3, 4, 7, 10]));
 //-------------------------------------------------------
 
 // Convert "Zero" and "One" to "1" and "0"
@@ -2065,38 +2065,96 @@ console.log(commonElements([1, 3, 4, 6, 7, 9], [1, 2, 3, 4, 7, 10]));
 // textToNumberBinary("zero one zero one zero one zero three") ➞ ""
 
 // textToNumberBinary("one one") ➞ ""
+//-----------------------------------------------------------------
+// function textToNumberBinary(str) {
+//   let numKey = {
+//     one: 1,
+//     zero: 0,
+//   };
+//   let strArr = str.split(" ");
 
-function textToNumberBinary(str) {
-  let numKey = {
-    one: 1,
-    zero: 0,
-  };
-  let strArr = str.split(" ");
+//   if (strArr.length < 8) return "Less than 8 words";
+//   for (let i = 0; i < strArr.length; i++) {
+//     strArr[i] = strArr[i].toLowerCase();
+//   }
+//   let strSet = new Set(strArr);
 
-  if (strArr.length < 8) return "Less than 8 words";
-  for (let i = 0; i < strArr.length; i++) {
-    strArr[i] = strArr[i].toLowerCase();
+//   if (strSet.size !== 2 && strArr.length < 8 + strSet.size - 2)
+//     return "Argument not equal to zero or one";
+//   let finalStr = "";
+//   for (let i = 0; i < strArr.length; i++) {
+//     if (numKey[strArr[i]] === undefined) continue;
+//     finalStr += numKey[strArr[i]];
+//   }
+//   let rem = finalStr.length % 8;
+
+//   return finalStr.slice(0, finalStr.length - rem);
+// }
+// console.log(textToNumberBinary("zero one zero one Zero one zero one"));
+
+// console.log(textToNumberBinary("one one"));
+// console.log(textToNumberBinary("zero one zero one zero one zero one one two"));
+// console.log(
+//   textToNumberBinary(
+//     "One zero zero one zero one one one zero one one zero zero zero zero one zero one one one zero one one zero zero zero zero one zero one one one zero one one zero zero zero zero one zero one one one zero one one zero zero zero zero one zero one one one zero one one zero zero zero zero one zero"
+//   )
+// );
+// console.log(textToNumberBinary('Two one zero one one zero one zero'))
+//--------------------------------------------------------------------------------------------
+// Number of Boomerangs
+// A boomerang is a V-shaped sequence that is either upright or upside down. Specifically, a boomerang can be defined as: sub-array of length 3, with the first and last digits being the same and the middle digit being different.
+
+// Some boomerang examples:
+
+// [3, 7, 3], [1, -1, 1], [5, 6, 5]
+// Create a function that returns the total number of boomerangs in an array.
+
+// To illustrate:
+
+// [3, 7, 3, 2, 1, 5, 1, 2, 2, -2, 2]
+// // 3 boomerangs in this sequence:  [3, 7, 3], [1, 5, 1], [2, -2, 2]
+// Be aware that boomerangs can overlap, like so:
+
+// [1, 7, 1, 7, 1, 7, 1]
+// // 5 boomerangs (from left to right): [1, 7, 1], [7, 1, 7], [1, 7, 1], [7, 1, 7], and [1, 7, 1]
+
+//---------------------------------------------------
+function countBoomerangs(arr) {
+  let numBoom = 0;
+  for (let i = 0; i < arr.length - 2; ) {
+    if (arr[i] === arr[i + 2] && arr[i] !== arr[i + 1]) {
+      numBoom++;
+      i++;
+    } else i++;
   }
-  let strSet = new Set(strArr);
-
-  if (strSet.size !== 2 && strArr.length < 8 + strSet.size - 2)
-    return "Argument not equal to zero or one";
-  let finalStr = "";
-  for (let i = 0; i < strArr.length; i++) {
-    if (numKey[strArr[i]] === undefined) continue;
-    finalStr += numKey[strArr[i]];
-  }
-  let rem = finalStr.length % 8;
-
-  return finalStr.slice(0, finalStr.length - rem);
+  return numBoom;
 }
-console.log(textToNumberBinary("zero one zero one Zero one zero one"));
+console.log(countBoomerangs([3, 7, 3, 2, 1, 5, 1, 2, 2, -2, 2]));
+console.log(countBoomerangs([1, 7, 1, 7, 1, 7, 1]));
 
-console.log(textToNumberBinary("one one"));
-console.log(textToNumberBinary("zero one zero one zero one zero one one two"));
-console.log(
-  textToNumberBinary(
-    "One zero zero one zero one one one zero one one zero zero zero zero one zero one one one zero one one zero zero zero zero one zero one one one zero one one zero zero zero zero one zero one one one zero one one zero zero zero zero one zero one one one zero one one zero zero zero zero one zero"
-  )
-);
-console.log(textToNumberBinary('Two one zero one one zero one zero'))
+//------------
+// Pandigital Numbers
+// A pandigital number contains all digits (0-9) at least once. Write a function that takes an integer, returning true if the integer is pandigital, and false otherwise.
+
+// Examples
+// isPandigital(98140723568910) ➞ true
+
+// isPandigital(90864523148909) ➞ false
+// // 7 is missing.
+
+// isPandigital(112233445566778899) ➞ false
+
+function isPandigital(num) {
+  let numBig = BigInt(num)
+  const pandigitalStr = "0123456789";
+  let numArr = String(numBig).split("");
+
+  const numSet = new Set(numArr);
+  numArr = [...numSet];
+  numArr = numArr.sort((a, b) => a - b).join("");
+  return numArr === pandigitalStr ? true : false;
+}
+
+console.log(isPandigital(98140723568910));
+console.log(isPandigital(112233445566778899))
+console.log(isPandigital(647380265483206))
