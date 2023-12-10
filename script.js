@@ -2236,47 +2236,190 @@ function vendingMachine(products, money, productNumber) {
 console.log(vendingMachine(products, 100, 9));
 console.log(vendingMachine(products, 250, 7));
 
-//Still working on it
+// Still working on it
+
+// function maximumSeating(arr) {
+//   let count = 0;
+//   const seatsNeeded = 5;
+//   for (let i = 1; i < arr.length; i += 3) {
+
+//     let j = i - 1;
+//     if (arr[j] === (0 || 1) && arr[j + 1] === 0 && arr[j + 2] === 0) {
+//       if (arr[j + seatsNeeded] !== undefined) {
+//         arr[j + 3] === 0 && arr[j + 4] === 0 && arr[j + 5] === 0
+//           ? count++
+//           : count;
+//       } else if (arr[j + seatsNeeded] === undefined) {
+//         if (arr[j + seatsNeeded - 1] === undefined) {
+//           arr[j + 3] === 0 ? count++ : count;
+//         } else {
+//           arr[j + 3] === 0 && arr[j + 4] === 0 ? count++ : count;
+//         }
+//       } else {
+//         arr[j + 3] === 0 ? count++ : count;
+//       }
+//     }
+//   }
+
+//   return count;
+// }
+
+// function maximumSeating(arr) {
+//   let count = 0;
+//   const seatsNeeded = 5;
+//   for (let i = 1; i < arr.length; i += 3) {
+//     let j = i - 1;
+//     if (arr[j] === (0 || 1) && arr[j + 1] === 0 && arr[j + 2] === 0) {
+//       if (arr[j + seatsNeeded] !== undefined) {
+//         arr[j + 3] === 0 && arr[j + 4] === 0 && arr[j + 5] === 0
+//           ? count++
+//           : count;
+//       } else if (arr[j + seatsNeeded] === undefined) {
+//         if (arr[j + seatsNeeded - 1] === undefined) {
+//           arr[j + 3] === 0 ? count++ : count;
+//         } else {
+//           arr[j + 3] === 0 && arr[j + 4] === 0 ? count++ : count;
+//         }
+//       } else {
+//         arr[j + 3] === 0 ? count++ : count;
+//       }
+//     }
+//   }
+
+//   return count;
+// }
+
 // function maximumSeating(arr) {
 //   let count = 0;
 //   for (let i = 1; i < arr.length; i += 3) {
-//     console.log(i);
 //     let j = i - 1;
-//     if (arr[j] === (0 || 1) && arr[j + 1] === 0 && arr[j + 2] === 0) {
-//       if (arr[j + 4] === undefined || arr[j + 5] === undefined) {
-//         arr[j + 3] === 0 ? count++ : "";
+//     if (arr[j] === 0) {
+//       if (i - 2 < 0 && i + 2 < arr.length) {
+//         let arrSliced = arr.slice(0, j + 3);
+//         arrSliced.every((val) => val === 0) ? count++ : count;
+//         console.log(arrSliced);
+//       }
+
+//       else if (i - 2 > 0 && i + 2 > arr.length) {
+//         let arrSliced = arr.slice(-3);
+//         console.log(arrSliced);
+//         arrSliced.every((val) => val === 0) ? count++ : count;
+//       }
+
+//       else if (i - 2 > 0 && i + 2 < arr.length) {
+//         let arrSliced = arr.slice(j - 2, j + 3);
+//         arrSliced.every((val) => val === 0) ? count++ : count;
+//         console.log(arrSliced);
 //       }
 //     }
 //   }
 //   return count;
 // }
-// console.log(
-//   maximumSeating([
-//     0,
-//     1,
-//     0,
-//     0,
-//     0,
-//     1,
-//     1,
-//     0,
-//     0,
-//     0,
-//     0,
-//     1,
-//     1,
-//     0,
-//     0,
-//     1,
-//     0,
-//     1,
-//     1,
-//     0,
-//     1,
-//     1,
-//     0,
-//     0,
-//     0,
-//     0,
-//   ])
-// );
+// function maximumSeating(arr) {
+//   let count = 0;
+
+//   for (let i = 1; i <= arr.length; i += 3) {
+//     let j = i - 1;
+//     if (arr[j] === 0) {
+//       if (i - 2 < 0 && i + 2 < arr.length) {
+//         console.log(i);
+
+//         let arrSliced = arr.slice(0, j + 3);
+//         if (arrSliced.every((val) => val === 0)) {
+//           count++;
+//         }
+//         console.log(arrSliced);
+//       } else if (i - 2 > 0 && i + 2 < arr.length) {
+//         console.log(i);
+
+//         let arrSliced = arr.slice(j - 2, j + 3);
+//         if (arrSliced.every((val) => val === 0)) {
+//           count++;
+//         }
+//         console.log(arrSliced);
+//       } else if (i - 2 > 0 && i + 2 > arr.length) {
+//         console.log(i);
+
+//         let arrSliced = arr.slice(i, i - 3, -1);
+//         console.log(arrSliced);
+//         if (arrSliced.every((val) => val === 0)) {
+//           count++;
+//         }
+//       }
+//     }
+//   }
+
+//   return count;
+// }
+//I did not think it would take this much efforts but here I am, after 5 hours :(
+function maximumSeating(arr) {
+  //Initialize count
+  let count = 0;
+  //starting at 1 and looping over seats in a series of 1,4,7....
+  for (let i = 1; i <= arr.length; i += 3) {
+    //actual index
+    let j = i - 1;
+
+    //checking if seat is empty
+    if (arr[j] === 0) {
+      //checking if we have seats on our left and right,case where we have no seat on left but 2 seats on right
+      if (i - 2 < 0 && i + 2 < arr.length) {
+        let arrSliced = arr.slice(0, j + 3);
+        if (arrSliced.every((val) => val === 0)) {
+          count++;
+        }
+      }
+      //checking if we have seats on our left and right,case where we have seats on both left and right
+      else if (i - 2 > 0 && i + 2 < arr.length) {
+        let arrSliced = arr.slice(j - 2, j + 3);
+        if (arrSliced.every((val) => val === 0)) {
+          count++;
+        }
+      }
+      //checking if we have seats on our left and right,case where we have no seat on right but 2 seats on left
+      else if (i - 2 > 0 && i + 2 > arr.length) {
+        let arrSliced = arr.slice(i - 3, i);
+        if (arrSliced.every((val) => val === 0)) {
+          count++;
+        }
+      }
+    }
+  }
+
+  return count;
+}
+console.log(maximumSeating([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
+console.log(maximumSeating([1]));
+console.log(maximumSeating([1, 0, 0, 0, 0, 1]));
+console.log(maximumSeating([0, 0, 0, 1, 0, 0, 1, 0, 0, 0]));
+console.log(maximumSeating([1, 0, 0, 0, 0, 0, 1]));
+console.log(
+  maximumSeating([
+    0,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0,
+    0,
+    1,
+    0,
+    1,
+    1,
+    0,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+  ])
+);
