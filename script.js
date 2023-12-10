@@ -2119,18 +2119,18 @@ function returnUnique(arr) {
 // // 5 boomerangs (from left to right): [1, 7, 1], [7, 1, 7], [1, 7, 1], [7, 1, 7], and [1, 7, 1]
 
 //---------------------------------------------------
-function countBoomerangs(arr) {
-  let numBoom = 0;
-  for (let i = 0; i < arr.length - 2; ) {
-    if (arr[i] === arr[i + 2] && arr[i] !== arr[i + 1]) {
-      numBoom++;
-      i++;
-    } else i++;
-  }
-  return numBoom;
-}
-console.log(countBoomerangs([3, 7, 3, 2, 1, 5, 1, 2, 2, -2, 2]));
-console.log(countBoomerangs([1, 7, 1, 7, 1, 7, 1]));
+// function countBoomerangs(arr) {
+//   let numBoom = 0;
+//   for (let i = 0; i < arr.length - 2; ) {
+//     if (arr[i] === arr[i + 2] && arr[i] !== arr[i + 1]) {
+//       numBoom++;
+//       i++;
+//     } else i++;
+//   }
+//   return numBoom;
+// }
+// console.log(countBoomerangs([3, 7, 3, 2, 1, 5, 1, 2, 2, -2, 2]));
+// console.log(countBoomerangs([1, 7, 1, 7, 1, 7, 1]));
 
 //------------
 // Pandigital Numbers
@@ -2144,17 +2144,139 @@ console.log(countBoomerangs([1, 7, 1, 7, 1, 7, 1]));
 
 // isPandigital(112233445566778899) ➞ false
 
-function isPandigital(num) {
-  let numBig = BigInt(num)
-  const pandigitalStr = "0123456789";
-  let numArr = String(numBig).split("");
+// function isPandigital(num) {
+//   let numBig = BigInt(num)
+//   const pandigitalStr = "0123456789";
+//   let numArr = String(numBig).split("");
 
-  const numSet = new Set(numArr);
-  numArr = [...numSet];
-  numArr = numArr.sort((a, b) => a - b).join("");
-  return numArr === pandigitalStr ? true : false;
+//   const numSet = new Set(numArr);
+//   numArr = [...numSet];
+//   numArr = numArr.sort((a, b) => a - b).join("");
+//   return numArr === pandigitalStr ? true : false;
+// }
+
+// console.log(isPandigital(98140723568910));
+// console.log(isPandigital(112233445566778899))
+// console.log(isPandigital(647380265483206))
+///
+
+// Cup Swapping
+// There are three cups on a table, at positions A, B, and C. At the start, there is a ball hidden under the cup at position B.
+
+// Image of cups where ball is under middle cup
+
+// However, I perform several swaps on the cups, which is notated as two letters. For example, if I swap the cups at positions A and B, I could notate this as AB or BA.
+
+// Create a function that returns the letter position that the ball is at, once I finish swapping the cups. The swaps will be given to you as an array.
+
+// Worked Example
+// cupSwapping(["AB", "CA", "AB"]) ➞ "C"
+
+// Ball begins at position B.
+// Cups A and B swap, so the ball is at position A.
+// Cups C and A swap, so the ball is at position C.
+// Cups A and B swap, but the ball is at position C, so it doesn't move.
+
+// function cupSwapping(swaps) {
+//   let currentCup = "B";
+
+//   for (let i = 0; i < swaps.length; i++) {
+//     if (swaps[i].includes(currentCup)) {
+//       let index = swaps[i].indexOf(currentCup);
+//       index = index === 0 ? 1 : 0;
+//       currentCup = swaps[i][index];
+//     }
+//   }
+//   return currentCup;
+// }
+// console.log(cupSwapping(["BA", "AC", "CA", "BC"]));
+// console.log((cupSwapping([]), "B"));
+// console.log(cupSwapping(["AC", "CA", "CA", "AC"]));
+
+const products = [
+  { number: 1, price: 100, name: "Orange juice" },
+  { number: 2, price: 200, name: "Soda" },
+  { number: 3, price: 150, name: "Chocolate snack" },
+  { number: 4, price: 250, name: "Cookies" },
+  { number: 5, price: 180, name: "Gummy bears" },
+  { number: 6, price: 500, name: "Condoms" },
+  { number: 7, price: 120, name: "Crackers" },
+  { number: 8, price: 220, name: "Potato chips" },
+  { number: 9, price: 80, name: "Small snack" },
+];
+
+//I want to now start adding comments for cleaner code.
+function vendingMachine(products, money, productNumber) {
+  //Checking for a valid product.
+  if (productNumber > products.length || productNumber < 1)
+    return "Enter a valid product number";
+  //Getting the product from the product obj based on index.
+  const productInfo = products[productNumber - 1];
+  //Checking if the user has enough money.
+  if (money < productInfo.price) return "Not enough money for this product";
+  let changeArr = [];
+  //Initial change
+  let change = money - productInfo.price;
+  //Coins to use.
+  const coins = [500, 200, 100, 50, 20, 10];
+  //If change is greater or equal to coin, pushing it to the change arr and subtracting it for remaining amount
+  for (let i = 0; i < coins.length; i++) {
+    if (change >= coins[i]) {
+      changeArr.push(coins[i]);
+      change = change - coins[i];
+    }
+  }
+  //Preparing for output.
+  let outputObj = {
+    change: changeArr,
+    product: productInfo.name,
+  };
+  return outputObj;
 }
+console.log(vendingMachine(products, 100, 9));
+console.log(vendingMachine(products, 250, 7));
 
-console.log(isPandigital(98140723568910));
-console.log(isPandigital(112233445566778899))
-console.log(isPandigital(647380265483206))
+//Still working on it
+// function maximumSeating(arr) {
+//   let count = 0;
+//   for (let i = 1; i < arr.length; i += 3) {
+//     console.log(i);
+//     let j = i - 1;
+//     if (arr[j] === (0 || 1) && arr[j + 1] === 0 && arr[j + 2] === 0) {
+//       if (arr[j + 4] === undefined || arr[j + 5] === undefined) {
+//         arr[j + 3] === 0 ? count++ : "";
+//       }
+//     }
+//   }
+//   return count;
+// }
+// console.log(
+//   maximumSeating([
+//     0,
+//     1,
+//     0,
+//     0,
+//     0,
+//     1,
+//     1,
+//     0,
+//     0,
+//     0,
+//     0,
+//     1,
+//     1,
+//     0,
+//     0,
+//     1,
+//     0,
+//     1,
+//     1,
+//     0,
+//     1,
+//     1,
+//     0,
+//     0,
+//     0,
+//     0,
+//   ])
+// );
