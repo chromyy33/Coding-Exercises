@@ -2351,75 +2351,126 @@ console.log(vendingMachine(products, 250, 7));
 
 //   return count;
 // }
-//I did not think it would take this much efforts but here I am, after 5 hours :(
-function maximumSeating(arr) {
-  //Initialize count
-  let count = 0;
-  //starting at 1 and looping over seats in a series of 1,4,7....
-  for (let i = 1; i <= arr.length; i += 3) {
-    //actual index
-    let j = i - 1;
+// //I did not think it would take this much efforts but here I am, after 5 hours :(
+// function maximumSeating(arr) {
+//   //Initialize count
+//   let count = 0;
+//   //starting at 1 and looping over seats in a series of 1,4,7....
+//   for (let i = 1; i <= arr.length; i += 3) {
+//     //actual index
+//     let j = i - 1;
 
-    //checking if seat is empty
-    if (arr[j] === 0) {
-      //checking if we have seats on our left and right,case where we have no seat on left but 2 seats on right
-      if (i - 2 < 0 && i + 2 < arr.length) {
-        let arrSliced = arr.slice(0, j + 3);
-        if (arrSliced.every((val) => val === 0)) {
-          count++;
-        }
-      }
-      //checking if we have seats on our left and right,case where we have seats on both left and right
-      else if (i - 2 > 0 && i + 2 < arr.length) {
-        let arrSliced = arr.slice(j - 2, j + 3);
-        if (arrSliced.every((val) => val === 0)) {
-          count++;
-        }
-      }
-      //checking if we have seats on our left and right,case where we have no seat on right but 2 seats on left
-      else if (i - 2 > 0 && i + 2 > arr.length) {
-        let arrSliced = arr.slice(i - 3, i);
-        if (arrSliced.every((val) => val === 0)) {
-          count++;
-        }
-      }
-    }
+//     //checking if seat is empty
+//     if (arr[j] === 0) {
+//       //checking if we have seats on our left and right,case where we have no seat on left but 2 seats on right
+//       if (i - 2 < 0 && i + 2 < arr.length) {
+//         let arrSliced = arr.slice(0, j + 3);
+//         if (arrSliced.every((val) => val === 0)) {
+//           count++;
+//         }
+//       }
+//       //checking if we have seats on our left and right,case where we have seats on both left and right
+//       else if (i - 2 > 0 && i + 2 < arr.length) {
+//         let arrSliced = arr.slice(j - 2, j + 3);
+//         if (arrSliced.every((val) => val === 0)) {
+//           count++;
+//         }
+//       }
+//       //checking if we have seats on our left and right,case where we have no seat on right but 2 seats on left
+//       else if (i - 2 > 0 && i + 2 > arr.length) {
+//         let arrSliced = arr.slice(i - 3, i);
+//         if (arrSliced.every((val) => val === 0)) {
+//           count++;
+//         }
+//       }
+//     }
+//   }
+
+//   return count;
+// }
+// console.log(maximumSeating([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
+// console.log(maximumSeating([1]));
+// console.log(maximumSeating([1, 0, 0, 0, 0, 1]));
+// console.log(maximumSeating([0, 0, 0, 1, 0, 0, 1, 0, 0, 0]));
+// console.log(maximumSeating([1, 0, 0, 0, 0, 0, 1]));
+// console.log(
+//   maximumSeating([
+//     0,
+//     1,
+//     0,
+//     0,
+//     0,
+//     1,
+//     1,
+//     0,
+//     0,
+//     0,
+//     0,
+//     1,
+//     1,
+//     0,
+//     0,
+//     1,
+//     0,
+//     1,
+//     1,
+//     0,
+//     1,
+//     1,
+//     0,
+//     0,
+//     0,
+//     0,
+//   ])
+// );
+// Working 9 to 5
+// Write a function that calculates overtime and pay associated with overtime.
+
+// Working 9 to 5: regular hours
+// After 5pm is overtime
+// Your function gets an array with 4 values:
+
+// Start of working day, in decimal format, (24-hour day notation)
+// End of working day. (Same format)
+// Hourly rate
+// Overtime multiplier
+// Your function should spit out:
+
+// $ + earned that day (rounded to the nearest hundreth)
+// Examples
+// overTime([9, 17, 30, 1.5]) ➞ "$240.00"
+
+// overTime([16, 18, 30, 1.8]) ➞ "$84.00"
+
+// overTime([13.25, 15, 30, 1.5]) ➞ "$52.50"
+// 2nd example explained:
+
+// From 16 to 17 is regular, so 1 * 30 = 30
+// From 17 to 18 is overtime, so 1 * 30 * 1.8 = 54
+// 30 + 54 = $84.00
+
+function overTime(arr) {
+  //destructuring the array
+  const [timeStart, timeEnd, regularPay, overTimeMul] = arr;
+  let totalPay = 0;
+  //Calculating regular hours worked
+  if (timeStart > 9 && timeStart < 17) {
+    const regularHours = 17 - timeStart;
+
+    const overTimeHours = timeEnd > 17 ? timeEnd - 17 : 0;
+    const regularHoursPay = regularPay * regularHours;
+    totalPay = (
+      overTimeHours * overTimeMul * regularPay +
+      regularHours * regularPay
+    ).toFixed(2);
+  } else if (timeStart < 9 || timeStart >= 17) {
+    const overTimeHours = timeEnd - timeStart;
+    const overTimePay = overTimeHours * overTimeMul * regularPay;
+
+    totalPay = Math.abs(overTimePay).toFixed(2);
   }
-
-  return count;
+  return totalPay;
 }
-console.log(maximumSeating([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
-console.log(maximumSeating([1]));
-console.log(maximumSeating([1, 0, 0, 0, 0, 1]));
-console.log(maximumSeating([0, 0, 0, 1, 0, 0, 1, 0, 0, 0]));
-console.log(maximumSeating([1, 0, 0, 0, 0, 0, 1]));
-console.log(
-  maximumSeating([
-    0,
-    1,
-    0,
-    0,
-    0,
-    1,
-    1,
-    0,
-    0,
-    0,
-    0,
-    1,
-    1,
-    0,
-    0,
-    1,
-    0,
-    1,
-    1,
-    0,
-    1,
-    1,
-    0,
-    0,
-    0,
-    0,
-  ])
-);
+console.log(overTime([13, 21, 38.6, 1.8]));
+console.log(overTime([18, 6, 19, 1.5]));
+console.log(overTime([3, 4, 1, 2]));
