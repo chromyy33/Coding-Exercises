@@ -2454,16 +2454,19 @@ function overTime(arr) {
   const [timeStart, timeEnd, regularPay, overTimeMul] = arr;
   let totalPay = 0;
   //Calculating regular hours worked
+  //If we start between 9 and 5p
   if (timeStart > 9 && timeStart < 17) {
     const regularHours = 17 - timeStart;
-
+    //checking overtime if any
     const overTimeHours = timeEnd > 17 ? timeEnd - 17 : 0;
     const regularHoursPay = regularPay * regularHours;
     totalPay = (
       overTimeHours * overTimeMul * regularPay +
       regularHours * regularPay
     ).toFixed(2);
-  } else if (timeStart < 9 || timeStart >= 17) {
+  } 
+  //checking if we worked overtime, after 5 and till 9
+  else if (timeStart < 9 || timeStart >= 17) {
     const overTimeHours = timeEnd - timeStart;
     const overTimePay = overTimeHours * overTimeMul * regularPay;
 
