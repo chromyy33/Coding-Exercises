@@ -2449,31 +2449,72 @@ console.log(vendingMachine(products, 250, 7));
 // From 17 to 18 is overtime, so 1 * 30 * 1.8 = 54
 // 30 + 54 = $84.00
 
-function overTime(arr) {
-  //destructuring the array
-  const [timeStart, timeEnd, regularPay, overTimeMul] = arr;
-  let totalPay = 0;
-  //Calculating regular hours worked
-  //If we start between 9 and 5p
-  if (timeStart > 9 && timeStart < 17) {
-    const regularHours = 17 - timeStart;
-    //checking overtime if any
-    const overTimeHours = timeEnd > 17 ? timeEnd - 17 : 0;
-    const regularHoursPay = regularPay * regularHours;
-    totalPay = (
-      overTimeHours * overTimeMul * regularPay +
-      regularHours * regularPay
-    ).toFixed(2);
-  } 
-  //checking if we worked overtime, after 5 and till 9
-  else if (timeStart < 9 || timeStart >= 17) {
-    const overTimeHours = timeEnd - timeStart;
-    const overTimePay = overTimeHours * overTimeMul * regularPay;
+// function overTime(arr) {
+//   //destructuring the array
+//   const [timeStart, timeEnd, regularPay, overTimeMul] = arr;
+//   let totalPay = 0;
+//   //Calculating regular hours worked
+//   //If we start between 9 and 5p
+//   if (timeStart > 9 && timeStart < 17) {
+//     const regularHours = 17 - timeStart;
+//     //checking overtime if any
+//     const overTimeHours = timeEnd > 17 ? timeEnd - 17 : 0;
+//     const regularHoursPay = regularPay * regularHours;
+//     totalPay = (
+//       overTimeHours * overTimeMul * regularPay +
+//       regularHours * regularPay
+//     ).toFixed(2);
+//   }
+//   //checking if we worked overtime, after 5 and till 9
+//   else if (timeStart < 9 || timeStart >= 17) {
+//     const overTimeHours = timeEnd - timeStart;
+//     const overTimePay = overTimeHours * overTimeMul * regularPay;
 
-    totalPay = Math.abs(overTimePay).toFixed(2);
+//     totalPay = Math.abs(overTimePay).toFixed(2);
+//   }
+//   return totalPay;
+// }
+// console.log(overTime([13, 21, 38.6, 1.8]));
+// console.log(overTime([18, 6, 19, 1.5]));
+// console.log(overTime([3, 4, 1, 2]));
+
+function getCoinBalances(arr1, arr2) {
+  //Declaring variables
+  //Starting coins
+  let coinsGreen = 3;
+  let coinsRed = 3;
+
+  const possibleActions = ["stealshare", "sharesteal", "shareshare"];
+
+  function shareORsteal(coinGreen, coinsRed, action, response) {
+    let responses = action + response;
+    switch (responses) {
+      case possibleActions[0]:
+        coinGreen += 3;
+        coinsRed--;
+        break;
+      case possibleActions[1]:
+        coinGreen--;
+        coinsRed += 3;
+        break;
+      case possibleActions[2]:
+        coinGreen += 2;
+        coinsRed += 2;
+        break;
+    }
+    return [coinsGreen, coinsRed];
   }
-  return totalPay;
+
+  for (let i = 0; i < arr1.length; i++) {
+    [coinsGreen, coinsRed] = shareORsteal(
+      coinsGreen,
+      coinsRed,
+      arr1[i],
+      arr2[i]
+    );
+  }
+  return {coinsGreen,coinsRed}
 }
-console.log(overTime([13, 21, 38.6, 1.8]));
-console.log(overTime([18, 6, 19, 1.5]));
-console.log(overTime([3, 4, 1, 2]));
+console.log(
+  getCoinBalances(["share", "share", "share"], ["steal", "share", "steal"])
+);
