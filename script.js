@@ -2205,36 +2205,36 @@ const products = [
   { number: 9, price: 80, name: "Small snack" },
 ];
 
-//I want to now start adding comments for cleaner code.
-function vendingMachine(products, money, productNumber) {
-  //Checking for a valid product.
-  if (productNumber > products.length || productNumber < 1)
-    return "Enter a valid product number";
-  //Getting the product from the product obj based on index.
-  const productInfo = products[productNumber - 1];
-  //Checking if the user has enough money.
-  if (money < productInfo.price) return "Not enough money for this product";
-  let changeArr = [];
-  //Initial change
-  let change = money - productInfo.price;
-  //Coins to use.
-  const coins = [500, 200, 100, 50, 20, 10];
-  //If change is greater or equal to coin, pushing it to the change arr and subtracting it for remaining amount
-  for (let i = 0; i < coins.length; i++) {
-    if (change >= coins[i]) {
-      changeArr.push(coins[i]);
-      change = change - coins[i];
-    }
-  }
-  //Preparing for output.
-  let outputObj = {
-    change: changeArr,
-    product: productInfo.name,
-  };
-  return outputObj;
-}
-console.log(vendingMachine(products, 100, 9));
-console.log(vendingMachine(products, 250, 7));
+// //I want to now start adding comments for cleaner code.
+// function vendingMachine(products, money, productNumber) {
+//   //Checking for a valid product.
+//   if (productNumber > products.length || productNumber < 1)
+//     return "Enter a valid product number";
+//   //Getting the product from the product obj based on index.
+//   const productInfo = products[productNumber - 1];
+//   //Checking if the user has enough money.
+//   if (money < productInfo.price) return "Not enough money for this product";
+//   let changeArr = [];
+//   //Initial change
+//   let change = money - productInfo.price;
+//   //Coins to use.
+//   const coins = [500, 200, 100, 50, 20, 10];
+//   //If change is greater or equal to coin, pushing it to the change arr and subtracting it for remaining amount
+//   for (let i = 0; i < coins.length; i++) {
+//     if (change >= coins[i]) {
+//       changeArr.push(coins[i]);
+//       change = change - coins[i];
+//     }
+//   }
+//   //Preparing for output.
+//   let outputObj = {
+//     change: changeArr,
+//     product: productInfo.name,
+//   };
+//   return outputObj;
+// }
+// console.log(vendingMachine(products, 100, 9));
+// console.log(vendingMachine(products, 250, 7));
 
 // Still working on it
 
@@ -2436,7 +2436,7 @@ console.log(vendingMachine(products, 250, 7));
 // Overtime multiplier
 // Your function should spit out:
 
-// $ + earned that day (rounded to the nearest hundreth)
+// $ + earned that day (rounded to the nearest hundredth)
 // Examples
 // overTime([9, 17, 30, 1.5]) ➞ "$240.00"
 
@@ -2478,43 +2478,85 @@ console.log(vendingMachine(products, 250, 7));
 // console.log(overTime([18, 6, 19, 1.5]));
 // console.log(overTime([3, 4, 1, 2]));
 
-function getCoinBalances(arr1, arr2) {
-  //Declaring variables
-  //Starting coins
-  let coinsGreen = 3;
-  let coinsRed = 3;
+// function getCoinBalances(arr1, arr2) {
+//   //Declaring variables
+//   //Starting coins
+//   let coinsGreen = 3;
+//   let coinsRed = 3;
 
-  const possibleActions = ["stealshare", "sharesteal", "shareshare"];
+//   const possibleActions = ["stealshare", "sharesteal", "shareshare"];
 
-  function shareORsteal(coinGreen, coinsRed, action, response) {
-    let responses = action + response;
-    switch (responses) {
-      case possibleActions[0]:
-        coinGreen += 3;
-        coinsRed--;
-        break;
-      case possibleActions[1]:
-        coinGreen--;
-        coinsRed += 3;
-        break;
-      case possibleActions[2]:
-        coinGreen += 2;
-        coinsRed += 2;
-        break;
+//   function shareORsteal(coinsGreen, coinsRed, action, response) {
+//     let responses = action + response;
+//     switch (responses) {
+//       case possibleActions[0]:
+//         coinsGreen += 3;
+//         coinsRed--;
+//         break;
+//       case possibleActions[1]:
+//         coinsGreen--;
+//         coinsRed += 3;
+//         break;
+//       case possibleActions[2]:
+//         coinsGreen += 2;
+//         coinsRed += 2;
+//         break;
+//     }
+//     return [coinsGreen, coinsRed];
+//   }
+
+//   for (let i = 0; i < arr1.length; i++) {
+//     [coinsGreen, coinsRed] = shareORsteal(
+//       coinsGreen,
+//       coinsRed,
+//       arr1[i],
+//       arr2[i]
+//     );
+//   }
+//   return [coinsGreen, coinsRed];
+// }
+
+// console.log(
+//   getCoinBalances(
+//     ["share", "steal", "steal", "steal"],
+//     ["share", "share", "steal", "share"]
+//   )
+// );
+
+function stringExpansion(txt) {
+  const regex = /\d+[a-zA-Z]+/g;
+  let a = [];
+
+  let matches = txt.match(regex);
+ 
+  function repeater(arr) {
+    let str = "";
+    for (let i = 0; i < arr.length; i++) {
+      let match;
+      match = arr[i];
+
+      const matchNum = match[0];
+      const matchChar = match.slice(1);
+
+      if (matchChar.length > 1) {
+        for (let i = 0; i < matchChar.length; i++) {
+          a.push(matchNum + matchChar[i]);
+          str = repeater(a);
+        }
+      } else {
+        for (let i = 0; i < matchNum; i++) {
+          str += match[1];
+        }
+      }
     }
-    return [coinsGreen, coinsRed];
+    return str;
   }
 
-  for (let i = 0; i < arr1.length; i++) {
-    [coinsGreen, coinsRed] = shareORsteal(
-      coinsGreen,
-      coinsRed,
-      arr1[i],
-      arr2[i]
-    );
-  }
-  return {coinsGreen,coinsRed}
+  const replacedStr = repeater(matches);
+  return replacedStr;
 }
-console.log(
-  getCoinBalances(["share", "share", "share"], ["steal", "share", "steal"])
-);
+
+console.log(stringExpansion("3n6s7f3n"));
+console.log(stringExpansion("3Mat2f2"));
+console.log(stringExpansion('0c3b1n7m'))
+// console.log(stringExpansion("3M2u5b2a1s1h2i1r"));
