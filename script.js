@@ -2523,40 +2523,100 @@ const products = [
 //   )
 // );
 
-function stringExpansion(txt) {
-  const regex = /\d+[a-zA-Z]+/g;
-  let a = [];
+// function stringExpansion(txt) {
+//   const regex = /\d+[a-zA-Z]+/g;
+//   let a = [];
 
-  let matches = txt.match(regex);
- 
-  function repeater(arr) {
-    let str = "";
-    for (let i = 0; i < arr.length; i++) {
-      let match;
-      match = arr[i];
+//   let matches = txt.match(regex);
 
-      const matchNum = match[0];
-      const matchChar = match.slice(1);
+//   function repeater(arr) {
+//     let str = "";
+//     for (let i = 0; i < arr.length; i++) {
+//       let match;
+//       match = arr[i];
 
-      if (matchChar.length > 1) {
-        for (let i = 0; i < matchChar.length; i++) {
-          a.push(matchNum + matchChar[i]);
-          str = repeater(a);
-        }
-      } else {
-        for (let i = 0; i < matchNum; i++) {
-          str += match[1];
-        }
-      }
-    }
-    return str;
-  }
+//       const matchNum = match[0];
+//       const matchChar = match.slice(1);
 
-  const replacedStr = repeater(matches);
-  return replacedStr;
-}
+//       if (matchChar.length > 1) {
+//         for (let i = 0; i < matchChar.length; i++) {
+//           a.push(matchNum + matchChar[i]);
+//           str = repeater(a);
+//         }
+//       } else {
+//         for (let i = 0; i < matchNum; i++) {
+//           str += match[1];
+//         }
+//       }
+//     }
+//     return str;
+//   }
 
-console.log(stringExpansion("3n6s7f3n"));
-console.log(stringExpansion("3Mat2f2"));
-console.log(stringExpansion('0c3b1n7m'))
+//   const replacedStr = repeater(matches);
+//   return replacedStr;
+// }
+
+// console.log(stringExpansion("3n6s7f3n"));
+// console.log(stringExpansion("3Mat2f2"));
+// console.log(stringExpansion('0c3b1n7m'))
 // console.log(stringExpansion("3M2u5b2a1s1h2i1r"));
+
+// Sort Positives, Keep Negatives
+// Write a function that sorts the positive numbers in ascending order, and keeps the negative numbers untouched.
+
+// Examples
+// posNegSort([6, 3, -2, 5, -8, 2, -2]) ➞ [2, 3, -2, 5, -8, 6, -2]
+
+// posNegSort([6, 5, 4, -1, 3, 2, -1, 1]) ➞ [1, 2, 3, -1, 4, 5, -1, 6]
+
+// posNegSort([-5, -5, -5, -5, 7, -5]) ➞ [-5, -5, -5, -5, 7, -5]
+
+// posNegSort([]) ➞ []
+// Notes
+// If given an empty array, you should return an empty array.
+// Integers will always be either positive or negative (0 isn't included in the tests).
+
+function posNegSort(arr) {
+  //storing negative indexes
+  const negIndexes = [];
+  //Looping and pushing index of negative values
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] < 0 ? negIndexes.push(i) : "";
+  }
+  //filtering pos values
+  let arrPos = arr.filter((a) => a > 0).sort((a, b) => a - b);
+  //Adding negative numbers at indexes of negative number from the original array
+  for (let i = 0; i < negIndexes.length; i++) {
+    arrPos.splice(negIndexes[i], 0, arr[negIndexes[i]]);
+  }
+  return arrPos
+}
+// function posNegSort(arr) {
+//   const positives = arr.filter(num => num > 0);
+//   const sortedPositives = positives.sort((a, b) => a - b);
+
+//   return arr.map(num => num > 0 ? sortedPositives.shift() : num);
+// }
+// console.log(posNegSort([6, 3, -2, 5, -8, 2, -2]));
+// [2, 3, -2, 5, -8, 6, -2];
+// console.log(posNegSort([-5, -5, -5, -5, 7, -5]))
+
+
+// function simpleComp(arr1, arr2) {
+//   let result = true;
+//   for (let i = 0; i < arr1.length; i++) {
+//     if (!arr2.some(a => a === arr1[i] * arr1[i])) {
+//       result = false;
+//     }
+//   }
+//   return result;
+// }
+
+// console.log(
+//   simpleComp(
+//     [121, 144, 19, 161, 19, 144, 19, 11],
+//     [121, 14641, 20736, 361, 25921, 361, 20736, 361]
+//   )
+// );
+// console.log(simpleComp([4, 4], [1, 31]))
+// console.log(simpleComp([2, 2, 3], [4, 4, 9]))
