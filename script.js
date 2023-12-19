@@ -2665,3 +2665,17 @@ function rotateArray(arr, n) {
   return finalArr;
 }
 console.log(rotateArray([0, 1, 2, 3, 4, 5, 7, 9], 2));
+
+function modify(txt) {
+  let key = "abcdefghijklmnopqrstuvwxyz";
+  txt = txt.split("").reverse().join(""); // convert to arr and reverse the arr and back to str
+  let numForm = "";
+  //looping and finding position in key string
+  for (let i = 0; i < txt.length; i++) {
+    numForm += key.indexOf(txt[i]) + 1;
+  }
+  //converting to binary
+  return Number(numForm).toString(2);
+}
+
+console.log(modify("mubashir"));
