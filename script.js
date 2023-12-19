@@ -2589,7 +2589,7 @@ function posNegSort(arr) {
   for (let i = 0; i < negIndexes.length; i++) {
     arrPos.splice(negIndexes[i], 0, arr[negIndexes[i]]);
   }
-  return arrPos
+  return arrPos;
 }
 // function posNegSort(arr) {
 //   const positives = arr.filter(num => num > 0);
@@ -2600,7 +2600,6 @@ function posNegSort(arr) {
 // console.log(posNegSort([6, 3, -2, 5, -8, 2, -2]));
 // [2, 3, -2, 5, -8, 6, -2];
 // console.log(posNegSort([-5, -5, -5, -5, 7, -5]))
-
 
 // function simpleComp(arr1, arr2) {
 //   let result = true;
@@ -2620,3 +2619,49 @@ function posNegSort(arr) {
 // );
 // console.log(simpleComp([4, 4], [1, 31]))
 // console.log(simpleComp([2, 2, 3], [4, 4, 9]))
+
+// Data Structures (3): Rotate an Array
+// Rotate an array either left or right according to the number passed.
+
+// You are an undercover agent and you're at a cocktail party hosted by an evil secret cartel. You've snuck into the main office to look at the files. They are organized according to an index system. You decide to rotate the files so that when the evil genius goes to get File 47: How to Make a Bomb he'll actually be grabbing File 43: How to Make a Paper Mache Dinosaur. His attempt at making a bomb will fail and you will have saved many lives.
+
+// Your challenge is to write a function that rotates an array by a given number, either left or right depending on if the number is positive or negative.
+
+// Arguments
+// Array: The array which will be rotated.
+// Number: The number of index positions the array will be rotated.
+// Returns Array: The rotated array.
+// Examples
+// A positive number rotates it to the right:
+
+// rotateArray([0, 1, 2, 3, 4, 5, 7, 9], 2) ➞ [7, 9, 0, 1, 2, 3, 4, 5]
+// A negative number rotates it to the left:
+
+// rotateArray([0, 1, 2, 3, 4, 5, 7, 9], -2) ➞ [2, 3, 4, 5, 7, 9, 0, 1]
+// The number to rotate by can be longer than the array, it just loops over in that case:
+
+// rotateArray([0, 1, 2, 3, 4, 5, 7, 9], 12) ➞ [4, 5, 7, 9, 0, 1, 2, 3]
+
+function rotateArray(arr, n) {
+  let sliced;
+  let finalArr = () => {
+    finalArr = [...sliced, ...arr];
+  };
+  //Positive append
+  if (n > 0 && n < arr.length) {
+    //-n gives us last 2 nums and the arr is then left with first 6
+    sliced = arr.splice(-n);
+    //appending sliced and remaining arr
+  } else if (n < 0) {
+    //Negative append,same logic as positive append,but getting the first 2 and putting them at last
+    sliced = arr.splice(Math.abs(n));
+  } else if (n > arr.length) {
+    //looping
+    //as n is always>arr.length, we subtract it to get the [POSITION, 12-8 = 4] and doing a negative append
+    let index = n - arr.length;
+    sliced = arr.splice(index);
+  }
+  finalArr();
+  return finalArr;
+}
+console.log(rotateArray([0, 1, 2, 3, 4, 5, 7, 9], 2));
