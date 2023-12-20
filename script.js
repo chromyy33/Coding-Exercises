@@ -2642,40 +2642,164 @@ function posNegSort(arr) {
 
 // rotateArray([0, 1, 2, 3, 4, 5, 7, 9], 12) ➞ [4, 5, 7, 9, 0, 1, 2, 3]
 
-function rotateArray(arr, n) {
-  let sliced;
-  let finalArr = () => {
-    finalArr = [...sliced, ...arr];
-  };
-  //Positive append
-  if (n > 0 && n < arr.length) {
-    //-n gives us last 2 nums and the arr is then left with first 6
-    sliced = arr.splice(-n);
-    //appending sliced and remaining arr
-  } else if (n < 0) {
-    //Negative append,same logic as positive append,but getting the first 2 and putting them at last
-    sliced = arr.splice(Math.abs(n));
-  } else if (n > arr.length) {
-    //looping
-    //as n is always>arr.length, we subtract it to get the [POSITION, 12-8 = 4] and doing a negative append
-    let index = n - arr.length;
-    sliced = arr.splice(index);
-  }
-  finalArr();
-  return finalArr;
-}
-console.log(rotateArray([0, 1, 2, 3, 4, 5, 7, 9], 2));
+// function rotateArray(arr, n) {
+//   let sliced;
+//   let finalArr = () => {
+//     finalArr = [...sliced, ...arr];
+//   };
+//   //Positive append
+//   if (n > 0 && n < arr.length) {
+//     //-n gives us last 2 nums and the arr is then left with first 6
+//     sliced = arr.splice(-n);
+//     //appending sliced and remaining arr
+//   } else if (n < 0) {
+//     //Negative append,same logic as positive append,but getting the first 2 and putting them at last
+//     sliced = arr.splice(Math.abs(n));
+//   } else if (n > arr.length) {
+//     //looping
+//     //as n is always>arr.length, we subtract it to get the [POSITION, 12-8 = 4] and doing a negative append
+//     let index = n - arr.length;
+//     sliced = arr.splice(index);
+//   }
+//   finalArr();
+//   return finalArr;
+// }
+// console.log(rotateArray([0, 1, 2, 3, 4, 5, 7, 9], 2));
 
-function modify(txt) {
-  let key = "abcdefghijklmnopqrstuvwxyz";
-  txt = txt.split("").reverse().join(""); // convert to arr and reverse the arr and back to str
-  let numForm = "";
-  //looping and finding position in key string
-  for (let i = 0; i < txt.length; i++) {
-    numForm += key.indexOf(txt[i]) + 1;
-  }
-  //converting to binary
-  return Number(numForm).toString(2);
-}
+// function modify(txt) {
+//   let key = "abcdefghijklmnopqrstuvwxyz";
+//   txt = txt.split("").reverse().join(""); // convert to arr and reverse the arr and back to str
+//   let numForm = "";
+//   //looping and finding position in key string
+//   for (let i = 0; i < txt.length; i++) {
+//     numForm += key.indexOf(txt[i]) + 1;
+//   }
+//   //converting to binary
+//   return Number(numForm).toString(2);
+// }
 
-console.log(modify("mubashir"));
+// console.log(modify("mubashir"));
+
+// A Simple Check
+// Mubashir needs your help in a simple task. Create a function which takes two positive integers a and b. These numbers are simultaneously decreased by 1 until the smaller one reaches 0.
+
+// During this process, the greater number can be divisible by the smaller one. Your task is to count how many times it will happen.
+
+// Example 1
+// a = 3, b = 5  // 5 is not divisible by 3
+// a = 2, b = 4  // decreased by 1, 4 is divisible by 2
+// a = 1, b = 3  // decreased by 1, 3 is divisible by 1
+// a = 0, b = 2  // decreased by 1, the smaller number is 0, End
+
+// The result should be 2
+
+// function simpleCheck(a, b) {
+//   let greater = a;
+//   let smaller = b;
+//   //finding the greater of the two
+//   a < b ? ((smaller = a), (greater = b)) : "";
+//   let count = 0;
+//   while (smaller > 0) {
+//     if (greater % smaller === 0) {
+//       count++;
+//     }
+
+//     smaller--;
+//     greater--;
+//   }
+//   return count;
+// }
+// console.log(simpleCheck(3, 5));
+// console.log(simpleCheck(8, 4));
+
+// Magic Square
+// In recreational mathematics, a square array of numbers, usually positive integers, is called a magic square if the sums of the numbers in each row, each column, and both main diagonals are the same.
+
+// Create a function that takes a square 2D array as an argument and returns a Boolean (if it is: true, if it isn't: false).
+
+// Examples
+// isMagicSquare([
+//   [2, 7, 6],
+//   [9, 5, 1],
+//   [4, 3, 8]
+// ]) ➞ true
+
+// isMagicSquare([
+//   [16, 3, 2, 13],
+//   [5, 10, 11, 8],
+//   [9, 6, 7, 12],
+//   [4, 15, 14, 1]
+// ]) ➞ true
+
+// isMagicSquare([
+//   [1, 14, 14, 4],
+//   [11, 7, 6, 9],
+//   [8, 11, 10, 5],
+//   [13, 2, 3, 15]
+// ])
+
+function isMagicSquare(arr) {
+  //Add rows
+  let rowSums = arr.map((array) => {
+    return array.reduce((prev, curr) => {
+      return prev + curr;
+    }, 0);
+  });
+  let isMagic = true;
+  const setRow = new Set(rowSums);
+  if (setRow.size !== 1) {
+    isMagic = false;
+    return isMagic;
+  }
+  //---------------------
+  //Add Columns
+  for (let j = 0; j < arr.length; j++) {
+    let sumCol = 0;
+    for (let i = 0; i < arr.length; i++) {
+      sumCol += arr[i][j];
+    }
+    if (!setRow.has(sumCol)) {
+      isMagic = false;
+      break;
+    }
+  }
+
+  if (isMagic === false) return isMagic;
+  //-------------------------
+
+  //Add Diagonals
+  let sumDig1 = 0;
+  let sumDig2 = 0;
+  outerLoop: for (let i = 0; i < arr.length; i++) {
+    sumDig1 += arr[i][i];
+    sumDig2 += arr[i][arr.length - 1 - i];
+  }
+  if (!setRow.has(sumDig1) || !setRow.has(sumDig2)) return false;
+
+  //-------------------------
+
+  return isMagic;
+}
+console.log(
+  isMagicSquare([
+    [2, 7, 6],
+    [9, 5, 1],
+    [4, 3, 8],
+  ])
+);
+console.log(
+  isMagicSquare([
+    [16, 3, 2, 13],
+    [5, 10, 11, 8],
+    [9, 6, 7, 12],
+    [4, 15, 14, 1],
+  ])
+);
+console.log(
+  isMagicSquare([
+    [1, 14, 14, 4],
+    [11, 7, 6, 9],
+    [8, 11, 10, 5],
+    [13, 2, 3, 15],
+  ])
+);
