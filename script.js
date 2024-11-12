@@ -2930,31 +2930,86 @@ function posNegSort(arr) {
 // console.log(missingLetter('abcdefg'));
 
 //
-function missingLetter(str) {
-  // Find the character codes for the first and last letters
-  const firstCharCode = str.charCodeAt(0);
-  const lastCharCode = str.charCodeAt(str.length - 1);
+// function missingLetter(str) {
+//   // Find the character codes for the first and last letters
+//   const firstCharCode = str.charCodeAt(0);
+//   const lastCharCode = str.charCodeAt(str.length - 1);
 
-  // Calculate the expected sum of character codes for the full range
-  const expectedSum =
-    ((lastCharCode - firstCharCode + 1) * (firstCharCode + lastCharCode)) / 2;
+//   // Calculate the expected sum of character codes for the full range
+//   const expectedSum =
+//     ((lastCharCode - firstCharCode + 1) * (firstCharCode + lastCharCode)) / 2;
 
-  // Calculate the sum of character codes for the current string
-  const actualSum = Array.from(str).reduce(
-    (acc, char) => acc + char.charCodeAt(0),
-    0
-  );
+//   // Calculate the sum of character codes for the current string
+//   const actualSum = Array.from(str).reduce(
+//     (acc, char) => acc + char.charCodeAt(0),
+//     0
+//   );
 
-  // If the sums match, there's no missing letter
-  if (expectedSum === actualSum) {
-    return 'No missing chars';
+//   // If the sums match, there's no missing letter
+//   if (expectedSum === actualSum) {
+//     return 'No missing chars';
+//   }
+
+//   // The missing letter is the difference between the expected and actual sums
+//   const missingCharCode = expectedSum - actualSum;
+//   return String.fromCharCode(missingCharCode);
+// }
+
+// console.log(missingLetter('abcdefg')); // Output: "No missing chars"
+// console.log(missingLetter('abcefg')); // Output: "d"
+// //learnings, we can use .charCodeAt directly on the str, silly me :(
+
+//got a new keyboard and the first thing I know is that the usb is integrated :() also there are no arrow keys plus the keyboard is not mechanical I guess, 17 bucks can only take you this far
+
+// Create a function which counts how many lone 1s appear in a given number. Lone means the number doesn't appear twice or more in a row.
+
+// Examples
+// countLoneOnes(101) ➞ 2
+
+// countLoneOnes(1191) ➞ 1
+
+// countLoneOnes(1111) ➞ 0
+
+// countLoneOnes(462) ➞ 0
+
+// function countLoneOnes(n) {
+//   //converting the str to arr
+//   const strArr = String(n).split('');
+//   console.log(strArr);
+//   //starting to loop
+//   let count = 0;
+//   for (let i = 0; i < strArr.length; i++) {
+//     //covering edge cases
+
+//     if (strArr.length == 1 && strArr[i] != 1) return 0;
+//     if (strArr[i] != 1) i++;
+//     if (strArr[i + 1]) {
+//       (strArr[i] == 1 && strArr[i + 1] != 1) ||
+//       (strArr[i + 1] == 1 && strArr[i] != 1)
+//         ? count++
+//         : '';
+//       i++;
+//     }
+//   }
+//   return count;
+// }
+console.log(countLoneOnes(10101121011121));
+console.log(countLoneOnes(1213141516171819121n));
+function countLoneOnes(n) {
+  // Convert the number to a string for easy traversal
+  const str = String(n);
+  let count = 0;
+  
+  // Loop through each character and check if it's a lone '1'
+  for (let i = 0; i < str.length; i++) {
+    if (
+      str[i] === '1' &&                  // It's a '1'
+      (i === 0 || str[i - 1] !== '1') && // Not preceded by '1'
+      (i === str.length - 1 || str[i + 1] !== '1') // Not followed by '1'
+    ) {
+      count++; // Increment count if it's a lone '1'
+    }
   }
-
-  // The missing letter is the difference between the expected and actual sums
-  const missingCharCode = expectedSum - actualSum;
-  return String.fromCharCode(missingCharCode);
+  
+  return count;
 }
-
-console.log(missingLetter('abcdefg')); // Output: "No missing chars"
-console.log(missingLetter('abcefg')); // Output: "d"
-//learnings, we can use .charCodeAt directly on the str, silly me :(
